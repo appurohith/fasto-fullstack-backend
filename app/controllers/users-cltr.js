@@ -62,43 +62,52 @@ usersCltr.login = async(req,res) => {
   
 }
 
-userCltr.updateProfile = async (req, res) => {
-    const errors = validationResult(req);
-  
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ error: errors });
-    } else {
-      const body = _.pick(req.body, ["newPassword", "changePassword"]);
-  
-      try {
-        if (body.newPassword === body.changePassword) {
-         
-          const tempUser = await UserModel.findById(req.user.id);
-  
-          if (!tempUser) {
-            return res.status(203).json({ error: "User not found" });
-          }
-  
-          const salt = await bcryptjs.genSalt();
-          const encryptedPwd = await bcryptjs.hash(body.changePassword, salt);
-  
-         
-          const user = await UserModel.findOneAndUpdate(
-            { _id: req.user.id, password: encryptedPwd },
-            { new: true }
-          );
-  
-          return res.status(200).json(user);
-        } else {
-          
-          return res.status(400).json({ error: "Passwords do not match" });
-        }
-      } catch (error) {
-        console.error(error);
-        return res.status(500).json({ error: "Internal Server Error" });
-      }
+usersCltr.userProfile = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id)
+         res.json(user)
+    } catch(e){
+        res.status(500).json(e)
     }
-  };
+}
+
+// usersCltr.updateProfile = async (req, res) => {
+//     const errors = validationResult(req);
+  
+//     if (!errors.isEmpty()) {
+//       return res.status(400).json({ error: errors });
+//     } else {
+//       const body = _.pick(req.body, ["newPassword", "changePassword"]);
+  
+//       try {
+//         if (body.newPassword === body.changePassword) {
+         
+//           const tempUser = await User.findById(req.user.id);
+  
+//           if (!tempUser) {
+//             return res.status(203).json({ error: "User not found" });
+//           }
+  
+//           const salt = await bcryptjs.genSalt();
+//           const encryptedPwd = await bcryptjs.hash(body.changePassword, salt);
+  
+         
+//           const user = await User.findOneAndUpdate(
+//             { _id: req.user.id, password: encryptedPwd },
+//             { new: true }
+//           );
+  
+//           return res.status(200).json(user);
+//         } else {
+          
+//           return res.status(400).json({ error: "Passwords do not match" });
+//         }
+//       } catch (error) {
+//         console.error(error);
+//         return res.status(500).json({ error: "Internal Server Error" });
+//       }
+//     }
+//   };
   
 
 
