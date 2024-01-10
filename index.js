@@ -24,7 +24,8 @@ app.get('/api/user/profile',authenticateUser, usersCltr.userProfile)
 
 app.post('/api/user/register',checkSchema(registerSchema), usersCltr.register)
 app.post('/api/user/login',checkSchema(loginSchema), usersCltr.login)
-// app.get('/api/user/profile/editprofile',authenticateUser, usersCltr.updateProfile)
+app.get('/api/user/profile',authenticateUser, usersCltr.userProfile)
+app.get('/api/user/profile/editprofile',authenticateUser, usersCltr.updateProfile)
 
 //category API
 app.post('/api/category',checkSchema(categoryValidationSchema), categoryCltr.createCategory)
