@@ -10,12 +10,13 @@ configureDB()
 
 const usersCltr = require('./app/controllers/users-cltr')
 
-const {registerSchema } = require('./app/validations/user-validation')
+const {registerSchema, loginSchema } = require('./app/validations/user-validation')
 
 
 //user APIS
 
 app.post('/api/user/register',checkSchema(registerSchema), usersCltr.register)
+app.post('/api/user/login')
 
 
 app.listen(PORT, () => {
