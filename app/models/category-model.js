@@ -2,11 +2,8 @@ const mongoose = require('mongoose')
 const {Schema,model} = mongoose
 
 const CategorySchema = new Schema({
-    name:{
-        type:String,
-        
-    }
+    name: String
 })
 
 const Category = model("Category",CategorySchema)
-models.exports = Category
+module.exports = Category
