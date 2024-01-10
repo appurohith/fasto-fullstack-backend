@@ -60,18 +60,46 @@ usersCltr.login = async(req,res) => {
         res.json(e)
     }
   
-  }
-
-
-usersCltr.userProfile = async (req, res ) => {
-    try {
-        const user = await User.findById(req.user.id)
-        res.json(user)
-        // console.log(user)
-    } catch(e){
-        res.status(500).json(e)
-        
-    }
 }
+
+userCltr.update = async (req, res) => {
+    const errors = validationResult(req);
+  
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ error: errors });
+    } else {
+      const body = _.pick(req.body, ["newPassword", "changePassword"]);
+  
+      try {
+        if (body.newPassword === body.changePassword) {
+          // Issue here: findById returns a query, not the user object
+          const tempUser = await UserModel.findById(req.user.id);
+  
+          if (!tempUser) {
+            return res.status(203).json({ error: "User not found" });
+          }
+  
+          const salt = await bcryptjs.genSalt();
+          const encryptedPwd = await bcryptjs.hash(body.changePassword, salt);
+  
+          // Issue here: findOneAndUpdate should be used with an object specifying the conditions
+          const user = await UserModel.findOneAndUpdate(
+            { _id: req.user.id, password: encryptedPwd },
+            { new: true }
+          );
+  
+          return res.status(200).json(user);
+        } else {
+          // Add an else block to handle the case where passwords don't match
+          return res.status(400).json({ error: "Passwords do not match" });
+        }
+      } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "Internal Server Error" });
+      }
+    }
+  };
+  
+
 
 module.exports = usersCltr
