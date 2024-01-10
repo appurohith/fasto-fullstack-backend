@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
+
 const {Schema,model} = mongoose
+
 const deliveryManSchema = new Schema({
     UserId:{
         type:Schema.type.objectId,
@@ -7,8 +9,10 @@ const deliveryManSchema = new Schema({
     },
     status:String,
     mobileNum:String,
-    job:[Schema.Types.objectId]
-
-    
+      
 },{timestamps:true})
-const deliveryMan = model('deliveryMan')
+
+
+const deliveryMan = model('deliveryMan', deliveryManSchema)
+
+module.exports = deliveryMan
