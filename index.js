@@ -13,12 +13,14 @@ configureDB()
 const usersCltr = require('./app/controllers/users-cltr')
 
 const {registerSchema, loginSchema } = require('./app/validations/user-validation')
+const {authenticateUser} = require('./app/middlewares/auth')
 
 
 //user APIS
 
 app.post('/api/user/register',checkSchema(registerSchema), usersCltr.register)
 app.post('/api/user/login',checkSchema(loginSchema), usersCltr.login)
+app.get('/api/user/profile',authenticateUser, usersCltr.userProfile)
 
 
 app.listen(PORT, () => {
