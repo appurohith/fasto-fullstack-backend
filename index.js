@@ -1,9 +1,11 @@
+require('dotenv').config() 
 const express = require('express')
 const cors = require('cors')
 const PORT = 3040
 const app = express()
 app.use(express.json())
 const {checkSchema } = require('express-validator')
+
 
 const configureDB = require('./config/db')
 configureDB()
@@ -16,7 +18,7 @@ const {registerSchema, loginSchema } = require('./app/validations/user-validatio
 //user APIS
 
 app.post('/api/user/register',checkSchema(registerSchema), usersCltr.register)
-app.post('/api/user/login')
+app.post('/api/user/login',checkSchema(loginSchema), usersCltr.login)
 
 
 app.listen(PORT, () => {
