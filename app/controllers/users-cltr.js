@@ -67,7 +67,7 @@ usersCltr.userProfile = async (req, res ) => {
     try {
         const user = await User.findById(req.user.id)
         res.json(user)
-        console.log(user)
+        // console.log(user)
     } catch(e){
         res.status(500).json(e)
         

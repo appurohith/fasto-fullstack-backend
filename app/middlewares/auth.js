@@ -23,7 +23,7 @@ const authenticateUser = (req, res, next) => {
     } try {
         const tokenData = jwt.verify(token, process.env.JWT_SECRET)
         req.user = {
-            is: tokenData.id,
+            id: tokenData.id,
             role: tokenData.role
         }
         next()
