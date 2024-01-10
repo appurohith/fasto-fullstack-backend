@@ -17,11 +17,13 @@ const {authenticateUser} = require('./app/middlewares/auth')
 
 
 //user APIS
+app.get('/api/user/profile',authenticateUser, usersCltr.userProfile)
+
 
 app.post('/api/user/register',checkSchema(registerSchema), usersCltr.register)
 app.post('/api/user/login',checkSchema(loginSchema), usersCltr.login)
 app.get('/api/user/profile',authenticateUser, usersCltr.userProfile)
-app.put('/api/user/profile/editprofile',authenticateUser, usersCltr.updateProfile)
+app.get('/api/user/profile/editprofile',authenticateUser, usersCltr.updateProfile)
 
 
 app.listen(PORT, () => {
