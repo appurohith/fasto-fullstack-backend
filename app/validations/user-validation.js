@@ -40,8 +40,8 @@ const registerValidationSchema = {
             errorMessage: 'role is required'
         },
         isIn: {
-            options: [['Deliveryboy', 'customer']],
-            errorMessage: 'role should be either Deliveryboy or customer'
+            options: [['DeliveryMan', 'customer']],
+            errorMessage: 'role should be either DeliveryMan or customer'
         }
     }
     // ,
