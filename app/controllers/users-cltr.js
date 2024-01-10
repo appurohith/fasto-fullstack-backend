@@ -62,7 +62,7 @@ usersCltr.login = async(req,res) => {
   
 }
 
-userCltr.update = async (req, res) => {
+userCltr.updateProfile = async (req, res) => {
     const errors = validationResult(req);
   
     if (!errors.isEmpty()) {
@@ -72,7 +72,7 @@ userCltr.update = async (req, res) => {
   
       try {
         if (body.newPassword === body.changePassword) {
-          // Issue here: findById returns a query, not the user object
+         
           const tempUser = await UserModel.findById(req.user.id);
   
           if (!tempUser) {
@@ -82,7 +82,7 @@ userCltr.update = async (req, res) => {
           const salt = await bcryptjs.genSalt();
           const encryptedPwd = await bcryptjs.hash(body.changePassword, salt);
   
-          // Issue here: findOneAndUpdate should be used with an object specifying the conditions
+         
           const user = await UserModel.findOneAndUpdate(
             { _id: req.user.id, password: encryptedPwd },
             { new: true }
@@ -90,7 +90,7 @@ userCltr.update = async (req, res) => {
   
           return res.status(200).json(user);
         } else {
-          // Add an else block to handle the case where passwords don't match
+          
           return res.status(400).json({ error: "Passwords do not match" });
         }
       } catch (error) {

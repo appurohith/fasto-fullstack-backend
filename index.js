@@ -21,7 +21,7 @@ const {authenticateUser} = require('./app/middlewares/auth')
 app.post('/api/user/register',checkSchema(registerSchema), usersCltr.register)
 app.post('/api/user/login',checkSchema(loginSchema), usersCltr.login)
 app.get('/api/user/profile',authenticateUser, usersCltr.userProfile)
-app.get('/api/user/')
+app.get('/api/user/profile/editprofile',authenticateUser, usersCltr.updateProfile)
 
 
 app.listen(PORT, () => {
