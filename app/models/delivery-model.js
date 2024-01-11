@@ -12,7 +12,6 @@ const deliveryManSchema = new Schema({
       
 },{timestamps:true})
 
-
 const deliveryMan = model('deliveryMan', deliveryManSchema)
 
 module.exports = deliveryMan
