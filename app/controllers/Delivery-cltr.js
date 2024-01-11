@@ -11,7 +11,7 @@ deliveryCltr.register = async (req, res) => {
     }
     const body = _.pick(req.body,['name',' status','mobile'])
     try {
-        delivery.UserId = req.users.id
+        delivery.UserId = req.user.id
         await delivery.save()
         res.json(delivery)
     } catch(e) {
