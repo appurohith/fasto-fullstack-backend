@@ -38,7 +38,7 @@ app.post('/api/category',checkSchema(categoryValidationSchema), categoryCltr.cre
 app.post('/api/product',checkSchema(productValidationSchema),productCltr.createProduct )
 
 //deliveryman api
-app.post('/api/admin/deliverman/register',authenticateUser,authorizeUser(['DeliveryMan']), checkSchema(deliverymanValidationSchema), deliveryCltr.register)
+app.post('/api/admin/deliverman/register',authenticateUser,authorizeUser(['Admin']), checkSchema(deliverymanValidationSchema), deliveryCltr.register)
 
 app.listen(PORT, () => {
     console.log('server is running on port', PORT)
