@@ -8,10 +8,10 @@ const deliveryManSchema = new Schema({
         ref:"user"
     },
     status:String,
-    mobileNum:String,
+    mobile:String,
       
 },{timestamps:true})
 
-const deliveryMan = model('deliveryMan', deliveryManSchema)
+const DeliveryMan = model('deliveryMan', deliveryManSchema)
 
-module.exports = deliveryMan
+module.exports = DeliveryMan
