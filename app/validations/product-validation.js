@@ -15,7 +15,29 @@ const productValidationSchema  = {
                 return true 
             }
         }
-    }
+    },
+    description : {
+        notEmpty : {
+            errorMessage : 'product description is required'
+        }
+    },
+    price : {
+        notEmpty : {
+            errorMessage : 'product price is required'
+        },
+        isNumeric : {
+            errorMessage : 'product price should be in number'
+        }
+    },
+    stock : {
+        notEmpty : {
+            errorMessage : 'product stock is required'
+        },
+        isNumeric : {
+            errorMessage : 'stock should br in number'
+        }
+    },
+    
 }
 
 module.exports = productValidationSchema

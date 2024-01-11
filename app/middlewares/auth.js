@@ -1,20 +1,16 @@
-
-// const authorizeUser = (roles) => {
-//     return (req, res, next) => {
-//         if(roles.includes(req.user.role)) {
-//             next()
-//         } else {
-//             res.status(403).json({ error: 'you are not authorized'})
-//         }
-//     }
-// }
-
-// module.exports = {
-//     authenticateUser: authenticateUser,
-//     authorizeUser: authorizeUser
-// }
-
 const jwt = require('jsonwebtoken')
+
+const authorizeUser = (roles) => {
+    return (req, res, next) => {
+        if(roles.includes(req.user.role)) {
+            next()
+        } else {
+            res.status(403).json({ error: 'you are not authorized'})
+        }
+    }
+}
+
+
 
 const authenticateUser = (req, res, next) => {
     const token = req.headers['authorization']
@@ -32,6 +28,12 @@ const authenticateUser = (req, res, next) => {
     }
 }
 
-module.exports = {
-    authenticateUser : authenticateUser
-}
+// module.exports = {
+    //     authenticateUser : authenticateUser
+    //     authorizeUser: authorizeUser
+    // }
+    module.exports = {
+        authenticateUser: authenticateUser,
+        authorizeUser: authorizeUser
+    }
+    
