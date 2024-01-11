@@ -9,7 +9,7 @@ deliveryCltr.register = async (req, res) => {
     if(!errors.isEmpty()){
         res.status(400).json({errors : errors.array()})
     }
-    const body = _.pick(req.body,[' status','mobile'])
+    const body = _.pick(req.body,['name',' status','mobile'])
     try {
         delivery.UserId = req.users.id
         await delivery.save()

@@ -1,6 +1,11 @@
 const DeliveryMan = require('../models/delivery-model')
 
 const deliverymanValidationSchema = {
+    name: {
+        notEmpty:{
+            errorMessage: 'nameis required'
+        }
+    },
         mobile: {
         notEmpty: {
             errorMessage: 'mobile is required'
