@@ -1,6 +1,6 @@
-const Category = require('../models/category-model')
+const Product = require('../models/product-model')
 
-const categoryValidationSchema  = {
+const productValidationSchema  = {
     name  :{
        notEmpty : {
             errorMessage : 'name of category is required'
@@ -8,9 +8,9 @@ const categoryValidationSchema  = {
     },
     custom: {
         options: async function(value){
-            const user = await Category.findOne({ name: value })
+            const user = await product.findOne({ name: value })
             if(user) {
-                throw new Error('category name already taken')
+                throw new Error('name already taken')
             } else {
                 return true 
             }
@@ -18,4 +18,4 @@ const categoryValidationSchema  = {
     }
 }
 
-module.exports = categoryValidationSchema
+module.exports = productValidationSchema

@@ -30,6 +30,9 @@ app.put('/api/user/profile/editprofile',authenticateUser, usersCltr.updateProfil
 //category API
 app.post('/api/category',checkSchema(categoryValidationSchema), categoryCltr.createCategory)
 
+//product Api
+app.post('/api/product',checkSchema())
+
 
 app.listen(PORT, () => {
     console.log('server is running on port', PORT)
