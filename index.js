@@ -12,11 +12,13 @@ configureDB()
 
 const usersCltr = require('./app/controllers/users-cltr')
 const categoryCltr = require('./app/controllers/Category-cltr')
+const productCltr = require('./app/controllers/product-cltr')
 
 const {registerSchema, loginSchema } = require('./app/validations/user-validation')
 const {authenticateUser} = require('./app/middlewares/auth')
 
 const categoryValidationSchema = require('./app/validations/category-validation')
+const productValidationSchema = require('./app/validations/product-validation')
 
 
 //user APIS
@@ -31,7 +33,7 @@ app.put('/api/user/profile/editprofile',authenticateUser, usersCltr.updateProfil
 app.post('/api/category',checkSchema(categoryValidationSchema), categoryCltr.createCategory)
 
 //product Api
-app.post('/api/product',checkSchema())
+app.post('/api/product',checkSchema(productValidationSchema),productCltr.createProduct )
 
 
 app.listen(PORT, () => {
