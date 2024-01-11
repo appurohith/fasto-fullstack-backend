@@ -20,7 +20,7 @@ const categoryValidationSchema = require('./app/validations/category-validation'
 
 
 //user APIS
-app.get('/api/user/profile',authenticateUser, usersCltr.userProfile)
+
 
 app.post('/api/user/register',checkSchema(registerSchema), usersCltr.register)
 app.post('/api/user/login',checkSchema(loginSchema), usersCltr.login)

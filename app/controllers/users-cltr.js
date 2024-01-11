@@ -75,7 +75,7 @@ usersCltr.updateProfile = async (req, res) => {
     const errors = validationResult(req);
   
     if (!errors.isEmpty()) {
-      return res.status(400).json({ error: errors.array() });
+      return res.status(400).json({ error: errors });
     } else {
       const body = _.pick(req.body, ["newPassword", "changePassword"]);
   
@@ -83,22 +83,20 @@ usersCltr.updateProfile = async (req, res) => {
         if (body.newPassword === body.changePassword) {
          
           const tempUser = await User.findById(req.user.id);
-
+  
           if (!tempUser) {
             return res.status(203).json({ error: "User not found" });
           }
+  
           const salt = await bcryptjs.genSalt();
-          console.log(salt,"pwd")
           const encryptedPwd = await bcryptjs.hash(body.changePassword, salt);
-          console.log(encryptedPwd,"pwd")
   
          
           const user = await User.findOneAndUpdate(
-            { _id: req.user.id},
-             {password: encryptedPwd },
+            { _id: req.user.id, password: encryptedPwd },
             { new: true }
           );
-        console.log(user)
+  
           return res.status(200).json(user);
         } else {
           
