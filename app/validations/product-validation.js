@@ -37,7 +37,15 @@ const productValidationSchema  = {
             errorMessage : 'stock should br in number'
         }
     },
-    
+    minStock : {
+        notEmpty : {
+            errorMessage : 'min stock is required'
+
+        },
+        isNumeric : {
+            errorMessage : 'minStock is in numbers'
+        }
+    }
 }
 
 module.exports = productValidationSchema
