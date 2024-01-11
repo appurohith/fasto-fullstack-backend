@@ -12,8 +12,9 @@ const addressSchema = new Schema ({
     city : String,
     state : String,
     pincode : Number,
-    geo : {
-        lat,lng
+    geo: {
+        lat: Number,
+        lng: Number
     }
 })
 
