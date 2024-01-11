@@ -4,7 +4,7 @@ const {Schema,model} = mongoose
 
 const deliveryManSchema = new Schema({
     UserId:{
-        type:Schema.type.objectId,
+        type:Schema.Types.ObjectId,
         ref:"user"
     },
     status: {
