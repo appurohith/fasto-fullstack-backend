@@ -32,27 +32,14 @@ deliveryCltr.register = async (req, res) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-
-    const body = _.pick(req.body, ['name', 'status', 'mobile']); // corrected ' status' to 'status'
-
+    const body = _.pick(req.body,['name',' status','mobile'])
     try {
-        // Create a new instance of the DeliveryMan model
-        const delivery = new DeliveryMan({
-            name: body.name,
-            status: body.status,
-            mobile: body.mobile,
-            UserId: req.user.id
-        });
-
-        // Save the new delivery instance
-        await delivery.save();
-
-        // Send the response
-        return res.json(delivery);
-    } catch (e) {
-        console.error(e);
-        return res.status(500).json(e);
+        delivery.UserId = req.users.id
+        await delivery.save()
+        res.json(delivery)
+    } catch(e) {
+        res.status(500).json(e)
     }
 };
 
-module.exports = deliveryCltr;
+module.exports = deliveryCltr
