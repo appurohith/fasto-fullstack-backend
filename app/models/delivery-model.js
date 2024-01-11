@@ -4,14 +4,17 @@ const {Schema,model} = mongoose
 
 const deliveryManSchema = new Schema({
     UserId:{
-        type:Schema.type.objectId,
+        type:Schema.Types.ObjectId,
         ref:"user"
     },
-    status:String,
-    mobileNum:String,
+    status: {
+        type : String,
+        enum : ['available', 'outForDelivery']
+    },
+    mobile:String,
       
 },{timestamps:true})
 
-const deliveryMan = model('deliveryMan', deliveryManSchema)
+const DeliveryMan = model('deliveryMan', deliveryManSchema)
 
-module.exports = deliveryMan
+module.exports = DeliveryMan

@@ -13,13 +13,15 @@ configureDB()
 const usersCltr = require('./app/controllers/users-cltr')
 const categoryCltr = require('./app/controllers/Category-cltr')
 const productCltr = require('./app/controllers/product-cltr')
+const deliveryCltr = require('./app/controllers/Delivery-cltr')
+
 
 const {registerSchema, loginSchema } = require('./app/validations/user-validation')
-const {authenticateUser} = require('./app/middlewares/auth')
+const {authenticateUser, authorizeUser} = require('./app/middlewares/auth')
 
 const categoryValidationSchema = require('./app/validations/category-validation')
 const productValidationSchema = require('./app/validations/product-validation')
-
+const deliverymanValidationSchema = require('./app/validations/delivery-validation')
 
 //user APIS
 
@@ -33,8 +35,10 @@ app.put('/api/user/profile/editprofile',authenticateUser, usersCltr.updateProfil
 app.post('/api/category',checkSchema(categoryValidationSchema), categoryCltr.createCategory)
 
 //product Api
-app.post('/api/product',checkSchema(productValidationSchema),productCltr.createProduct)
+app.post('/api/product',checkSchema(productValidationSchema),productCltr.createProduct )
 
+//deliveryman api
+app.post('/api/admin/deliverman/register',authenticateUser,authorizeUser(['DeliveryMan']), checkSchema(deliverymanValidationSchema), deliveryCltr.register)
 
 app.listen(PORT, () => {
     console.log('server is running on port', PORT)
