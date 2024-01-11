@@ -45,6 +45,9 @@ const productValidationSchema  = {
         isNumeric : {
             errorMessage : 'minStock is in numbers'
         }
+    },
+    category : {
+        errorMessage : 'categoryId missing'
     }
 }
 
