@@ -7,7 +7,10 @@ const deliveryManSchema = new Schema({
         type:Schema.type.objectId,
         ref:"user"
     },
-    status:String,
+    status: {
+        type : String,
+        enum : ['available', 'outForDelivery']
+    },
     mobile:String,
       
 },{timestamps:true})
