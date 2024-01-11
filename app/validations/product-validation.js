@@ -46,7 +46,7 @@ const productValidationSchema  = {
             errorMessage : 'minStock is in numbers'
         }
     },
-    categoryId : {
+    category : {
         errorMessage : 'categoryId missing'
     }
 }

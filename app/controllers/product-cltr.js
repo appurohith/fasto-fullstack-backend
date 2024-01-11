@@ -9,7 +9,10 @@ productCltr.createProduct = async (req,res) => {
     if(!errors.isEmpty()){
         res.status(400).json({errors:errors.array()})
     }
-    const body = _.pick(req.body,['name','description','price','stock','minStock'])
+    const body = _.pick(req.body,['name','description','price','stock','minStock','categories'])
+    const categoriesArr = []
+    categoriesArr.push({categoryId: body.categories})
+    body.categories = categoriesArr
     try{
         const product = new Product(body)
         await product.save()
