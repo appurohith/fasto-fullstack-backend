@@ -30,7 +30,7 @@ app.get('/api/user/profile',authenticateUser, usersCltr.userProfile)
 app.put('/api/user/profile/editprofile',authenticateUser, usersCltr.updateProfile)
 
 //category API
-app.post('/api/category',authenticateUser,checkSchema(categoryValidationSchema), categoryCltr.createCategory)
+app.post('/api/category',checkSchema(categoryValidationSchema), categoryCltr.createCategory)
 
 //product Api
 app.post('/api/product',checkSchema(productValidationSchema),productCltr.createProduct)

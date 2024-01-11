@@ -8,7 +8,7 @@ const productValidationSchema  = {
     },
     custom: {
         options: async function(value){
-            const user = await product.findOne({ name: value })
+            const user = await Product.findOne({ name: value })
             if(user) {
                 throw new Error('name already taken')
             } else {
