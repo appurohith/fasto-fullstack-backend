@@ -21,7 +21,8 @@ const orderSchema = new Schema({
     total: Number,
     status:[
         {
-            type: string
+            type: string,
+            enum : ['dispatched', 'pending','delivered']
         }
     ],
     
