@@ -1,14 +1,5 @@
 const jwt = require('jsonwebtoken')
 
-const authorizeUser = (roles) => {
-    return (req, res, next) => {
-        if(roles.includes(req.user.role)) {
-            next()
-        } else {
-            res.status(403).json({ error: 'you are not authorized'})
-        }
-    }
-}
 
 
 
@@ -28,6 +19,15 @@ const authenticateUser = (req, res, next) => {
     }
 }
 
+const authorizeUser = (roles) => {
+    return (req, res, next) => {
+        if(roles.includes(req.user.role)) {
+            next()
+        } else {
+            res.status(403).json({ error: 'you are not authorized'})
+        }
+    }
+}
 // module.exports = {
     //     authenticateUser : authenticateUser
     //     authorizeUser: authorizeUser

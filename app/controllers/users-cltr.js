@@ -84,7 +84,7 @@ usersCltr.updateProfile = async (req, res) => {
         if (body.newPassword === body.changePassword) {
          
           const tempUser = await User.findById(req.user.id);
-  
+        
           if (!tempUser) {
             return res.status(203).json({ error: "User not found" });
           }
@@ -94,9 +94,10 @@ usersCltr.updateProfile = async (req, res) => {
   
          
           const user = await User.findOneAndUpdate(
-            { _id: req.user.id, password: encryptedPwd },
+            { _id: req.user.id}, {password: encryptedPwd },
             { new: true }
           );
+
   
           return res.status(200).json(user);
         } else {

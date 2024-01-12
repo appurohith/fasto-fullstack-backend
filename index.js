@@ -14,6 +14,7 @@ const usersCltr = require('./app/controllers/users-cltr')
 const categoryCltr = require('./app/controllers/Category-cltr')
 const productCltr = require('./app/controllers/product-cltr')
 const deliveryCltr = require('./app/controllers/Delivery-cltr')
+const ordersCltr = require('./app/controllers/order-cltr')
 
 
 const {registerSchema, loginSchema } = require('./app/validations/user-validation')
@@ -22,6 +23,7 @@ const {authenticateUser, authorizeUser} = require('./app/middlewares/auth')
 const categoryValidationSchema = require('./app/validations/category-validation')
 const productValidationSchema = require('./app/validations/product-validation')
 const deliverymanValidationSchema = require('./app/validations/delivery-validation')
+const orderValidationSchema = require('./app/validations/order-validation')
 
 //user APIS
 
@@ -39,6 +41,9 @@ app.post('/api/product',checkSchema(productValidationSchema),productCltr.createP
 
 //deliveryman api
 app.post('/api/admin/deliverman/register',authenticateUser,authorizeUser(['Admin']), checkSchema(deliverymanValidationSchema), deliveryCltr.register)
+
+//order api
+app.post('/api/user/order',authenticateUser,checkSchema(orderValidationSchema),ordersCltr.createOrder)
 
 app.listen(PORT, () => {
     console.log('server is running on port', PORT)
