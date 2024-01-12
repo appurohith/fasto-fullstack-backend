@@ -50,7 +50,7 @@ deliveryCltr.register = async (req, res) => {
         // Send the response
         return res.json(delivery);
     } catch (e) {
-        console.error(e);
+        console.log(e);
         return res.status(500).json(e);
     }
 };
