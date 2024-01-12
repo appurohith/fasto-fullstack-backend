@@ -41,6 +41,8 @@ app.post('/api/product',checkSchema(productValidationSchema),productCltr.createP
 
 //deliveryman api
 app.post('/api/admin/deliverman/register',authenticateUser,authorizeUser(['Admin']), checkSchema(deliverymanValidationSchema), deliveryCltr.register)
+// app.delete('/api/notes/:id', authenticateUser, checkSchema(noteValidationSchema) , notesCltr.removeNote)
+app.delete('/api/products/:id',authenticateUser, checkSchema(productValidationSchema), productCltr.deleteProduct)
 
 //order api
 app.post('/api/user/order',authenticateUser,checkSchema(orderValidationSchema),ordersCltr.createOrder)

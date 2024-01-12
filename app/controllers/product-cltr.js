@@ -23,5 +23,56 @@ productCltr.createProduct = async (req,res) => {
     }
 }
 
+// productCtrl.deleteProduct = async (req, res) => {
+//     try {
+//         // Assuming the product ID is sent in the request parameters
+//         const productId = req.params.productId;
+
+//         // Check if the product exists
+//         const product = await Product.findById(productId);
+//         if (!product) {
+//             return res.status(404).json({ message: 'Product not found' });
+//         }
+
+//         // Delete the product
+//         await Product.findByIdAndDelete(productId);
+
+//         res.json({ message: 'Product deleted successfully' });
+//     } catch (e) {
+//         console.error(e);
+//         res.status(500).json({ error: 'Internal Server Error' });
+//     }
+
+// notesCltr.removeNote = async (req, res) => {
+//     const id = req.params.id
+//     try{
+//         const note = await Note.findOneAndDelete({_id: id, userId:req.user.id},body,{new:true})
+//         if(!note){
+//             return res.status(404).json({errors: 'record not found'})
+//         }
+//         res.json(note)
+//     } catch(e){
+//         res.status(500).json(e)
+//     }
+// }
+// };
+
+productCltr.deleteProduct = async (req, res) => {
+    try {
+        const productId = req.params.productId
+
+        const product = await Product.findById(productId)
+        if(!product){
+            return res.status(404).json({message: 'Product not found'})
+        }
+
+        await Product.findByIdAndDelete(productId)
+        res.json({message: 'Product deleted successfully'})
+    } catch(e){
+        console.log(e)
+        res.status(500).json(e)
+    }
+}
+
 
 module.exports = productCltr
