@@ -9,7 +9,7 @@ ordersCltr.createOrder = async (req, res) => {
     if(!errors.isEmpty()){
         return res.status(400).json({errors: errors.array()})
     }
-    const body = _.pick(req.body, ['products','total','status'])
+    const body = _.pick(req.body, ['products','addressId','total','status'])
     body.customerId=req.user.id
     try{
         const order = new Order(body)

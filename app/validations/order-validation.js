@@ -1,11 +1,11 @@
 const Order = require('../models/order-model')
 
 const orderValidationSchema = {
-    customerId : {
-        notEmpty : {
-            errorMessage : 'customer ID is required'
-        }
-    },
+    // customerId : {
+    //     notEmpty : {
+    //         errorMessage : 'customer ID is required'
+    //     }
+    // },
     products: {
         isArray:{
             errorMessage: 'Product must be an array'
@@ -17,6 +17,11 @@ const orderValidationSchema = {
                 })
             },
             errorMessage:  'Each product must have a productId, quantity and price'
+        }
+    },
+    addressId : {
+        notEmpty : {
+            errorMessage : 'address ID is required'
         }
     },
     total : {

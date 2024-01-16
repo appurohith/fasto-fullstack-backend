@@ -3,10 +3,9 @@ const mongoose = require('mongoose')
 const{ Schema, model} = mongoose
 
 const orderSchema = new Schema({
-    customerId : {
+   customerId : {
         type: Schema.Types.ObjectId,
-        ref : 'Customer'
-        
+        ref : 'User'  
     },
     products:[
         {
@@ -17,12 +16,16 @@ const orderSchema = new Schema({
             quantity: String,
             price:String
         }
-    ],
+    ] ,
+    addressId : {
+        type : Schema.Types.ObjectId,
+        ref : 'Address'
+    },
     total: Number,
     status:[
         {
             type: String,
-            enum : ['dispatched', 'pending','delivered']
+            enum : ['dispatched','pending','delivered']
         }
     ],
     
