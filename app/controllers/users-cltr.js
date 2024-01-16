@@ -35,6 +35,47 @@ usersCltr.register = async (req, res) => {
     }
 }
 
+// usersCltr.login = async (req, res) =>{
+//   const errors = validationResult(req)
+//   if(!errors.isEmpty()){
+//       return res.status(400).json({errors: errors.array()})
+//   }
+//   const body = _.pick(req.body, ['mobile', 'password'])
+//   // body.image = req.file.filename
+//   try{
+//       const user = await User.findOne({mobile: body.mobile})
+//       if(!user){
+//           return res.status(404).json({errors: 'invalid mobile/password'})
+//       }
+//       const result = await bcryptjs.compare(body.password, user.password)
+//       if(!result){
+//           return res.status(404).json({errors:"invalid mobile/password"})
+//       }
+      
+//       const operator = await OperatorProfile.findOne({userId: user._id})
+//       if(operator){
+//           const tokenData = {
+//               id: user._id,
+//               role: user.role,
+//               operator: operator._id     
+//           }
+//           console.log(tokenData)
+//           const token = jwt.sign(tokenData, process.env.JWT_SECRET, {expiresIn: '14d'})
+//           res.json({token : token})
+//       }else{
+//           const tokenData = {
+//               id: user._id,
+//               role: user.role     
+//           }
+//           console.log(tokenData)
+//           const token = jwt.sign(tokenData, process.env.JWT_SECRET, {expiresIn: '14d'})
+//           res.json({token: token})
+//       }
+//   }catch(e){
+//       res.status(500).json(e)
+//   }
+// }
+
 
 
 usersCltr.login = async(req,res) => {
