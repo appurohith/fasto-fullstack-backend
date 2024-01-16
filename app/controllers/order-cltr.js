@@ -20,5 +20,29 @@ ordersCltr.createOrder = async (req, res) => {
         return res.status(500).json(e);
     }
 }
+// productCltr.deleteProduct = async(req, res) => {
+//     const id = req.params.id
+
+//     try {
+//         const product = await Product.findByIdAndDelete({_id:id,Admin:req.user.id})
+//         res.status(200).json(product)
+    
+//     } catch(e) {
+//         res.status(500).json(e)
+//         console.log(e)
+//     }
+// }
+
+ordersCltr.delete = async (req, res) => {
+    const id = req.params.id
+
+    try {
+        const order = await Order.findByIdAndDelete({_id:id,customer:req.user.id})
+        res.status(200).json(order)
+    } catch(e) {
+        res.status(500).json(e)
+    }
+
+}
 
 module.exports = ordersCltr

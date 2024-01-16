@@ -52,6 +52,7 @@ app.post('/api/admin/deliverman/register',authenticateUser,authorizeUser(['Admin
 
 //order api
 app.post('/api/user/order',authenticateUser,checkSchema(orderValidationSchema),ordersCltr.createOrder)
+app.delete('/api/user/order/:id',authenticateUser,authorizeUser(['customer']),ordersCltr.delete)
 
 //adress
 app.post('/api/user/order/address',authenticateUser,checkSchema(addressValidationSchema),AddressCltr.createAddress)
