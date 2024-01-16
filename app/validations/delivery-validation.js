@@ -3,7 +3,17 @@ const DeliveryMan = require('../models/delivery-model')
 const deliverymanValidationSchema = {
     name: {
         notEmpty:{
-            errorMessage: 'nameis required'
+            errorMessage: 'name is required'
+        },
+        custom: {
+            options: async function(value){
+                const user = await DeliveryMan.findOne({ name: value })
+                if(user) {
+                    throw new Error('name already taken')
+                } else {
+                    return true 
+                }
+            }
         }
     },
         mobile: {

@@ -33,7 +33,7 @@ deliveryCltr.register = async (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const body = _.pick(req.body, ['name', 'status', 'mobile']); // corrected ' status' to 'status'
+    const body = _.pick(req.body, ['name', 'status', 'mobile']); 
 
     try {
         // Create a new instance of the DeliveryMan model

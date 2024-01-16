@@ -5,8 +5,9 @@ const {Schema,model} = mongoose
 const deliveryManSchema = new Schema({
     UserId:{
         type:Schema.Types.ObjectId,
-        ref:"user"
+        ref:"User"
     },
+    name : String,
     status: {
         type : String,
         enum : ['available', 'outForDelivery']
@@ -15,6 +16,6 @@ const deliveryManSchema = new Schema({
       
 },{timestamps:true})
 
-const DeliveryMan = model('deliveryMan', deliveryManSchema)
+const DeliveryMan = model('DeliveryMan', deliveryManSchema)
 
 module.exports = DeliveryMan

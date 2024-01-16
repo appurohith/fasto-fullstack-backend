@@ -9,14 +9,10 @@ ordersCltr.createOrder = async (req, res) => {
     if(!errors.isEmpty()){
         return res.status(400).json({errors: errors.array()})
     }
-    const body = _.pick(req.body, ['customerId','products','total','status'])
+    const body = _.pick(req.body, ['products','total','status'])
+    body.customerId=req.user.id
     try{
-        const order = new Order({
-            customerId:req.customerid,
-            products:body.products,
-            total:body.total,
-            status:body.status,
-        })
+        const order = new Order(body)
         await order.save()
         return res.json(order)
     } catch(e){
