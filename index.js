@@ -43,7 +43,7 @@ app.post('/api/category',authenticateUser,authorizeUser(['Admin']),checkSchema(c
 
 //product Api
 app.post('/api/product',authenticateUser,authorizeUser(['Admin']),checkSchema(productValidationSchema),productCltr.createProduct )
-app.delete('/api/admin/products/:id',authenticateUser,authorizeUser(['Admin']),checkSchema(productValidationSchema), productCltr.deleteProduct)
+app.delete('/api/admin/products/:id',authenticateUser,authorizeUser(['Admin']), productCltr.deleteProduct)
 
 
 

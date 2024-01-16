@@ -5,8 +5,7 @@
     role - [Owner, DeliveryAgent, Customer]
 
 # DeliveryAgent 
-    firstName
-    lastName
+    name
     mobile
     status 
     userId
