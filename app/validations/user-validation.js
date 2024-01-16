@@ -29,6 +29,7 @@ const registerValidationSchema = {
                 if(user) {
                     throw new Error('email already taken')
                 } else {
+                    console.log("hhh");
                     return true 
                 }
             }
@@ -40,7 +41,7 @@ const registerValidationSchema = {
             errorMessage: 'role is required'
         },
         isIn: {
-            options: [['DeliveryMan', 'customer']],
+            options: [['Admin', 'customer']],
             errorMessage: 'role should be either DeliveryMan or customer'
         }
     }

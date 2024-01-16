@@ -12,8 +12,8 @@ ordersCltr.createOrder = async (req, res) => {
     const body = _.pick(req.body, ['customerId','products','total','status'])
     try{
         const order = new Order({
-            customerId:req.customer.id,
-            products:products ,
+            customerId:req.customerid,
+            products:body.products,
             total:body.total,
             status:body.status,
         })
