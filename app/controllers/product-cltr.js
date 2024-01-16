@@ -23,6 +23,26 @@ productCltr.createProduct = async (req,res) => {
     }
 }
 
+// postCltr.listPost = async (req, res) => {
+//     try {
+//         const post = await Post.find()
+//         // .populate('author', ['_id','username', 'email'])
+//         res.status(200).json(post)
+//     } catch (e){
+//         res.status(500).json(e)
+//     }
+// }
+
+productCltr.listProduct = async (req, res) => {
+    try {
+        const product = await Product.find()
+
+        res.status(200).json(product)
+    } catch(e) {
+        res.status(500).json(e)
+    }
+}
+
 productCltr.deleteProduct = async(req, res) => {
     const id = req.params.id
 
