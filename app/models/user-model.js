@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const{ Schema, model} = mongoose
 
 const UserSchema = new Schema ({
-    name : String,
+    username : String,
     email : String,
     password : String,
     role : {

@@ -7,7 +7,7 @@ const deliveryManSchema = new Schema({
         type:Schema.Types.ObjectId,
         ref:"User"
     },
-    name : String,
+    username : String,
     status: {
         type : String,
         enum : ['available', 'outForDelivery']
