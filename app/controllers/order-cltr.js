@@ -22,6 +22,16 @@ ordersCltr.createOrder = async (req, res) => {
 }
 
 
+ordersCltr.listAllOrder = async (req, res) => {
+    try {
+        const order = await Order.find()
+        res.status(200).json(order)
+    } catch(e){
+        res.status(500).json(e)
+    }
+}
+
+
 ordersCltr.delete = async (req, res) => {
     const id = req.params.id
 

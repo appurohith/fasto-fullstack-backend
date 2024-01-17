@@ -116,6 +116,15 @@ usersCltr.userProfile = async (req, res) => {
     }
 }
 
+usersCltr.listAllUser = async (req, res) => {
+  try {
+    const user = await User.find()
+    res.status(200).json(user)
+  } catch(e){
+    res.status(500).json(e)
+  }
+}
+
 usersCltr.updateProfile = async (req, res) => {
     const errors = validationResult(req);
   

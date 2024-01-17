@@ -35,11 +35,14 @@ const AddressCltr = require('./app/controllers/address-cltr')
 
 app.post('/api/user/register',checkSchema(registerSchema), usersCltr.register)
 app.post('/api/user/login',checkSchema(loginSchema), usersCltr.login)
-app.get('/api/user/profile',authenticateUser, usersCltr.userProfile)
+app.get('/api/user/getSingleProfile',authenticateUser, usersCltr.userProfile)
+app.get('/api/user/getAllUsers',authenticateUser,authorizeUser(['Admin']), usersCltr.listAllUser)
 app.put('/api/user/profile/editprofile',authenticateUser, usersCltr.updateProfile)
 
 //category API
 app.post('/api/category',authenticateUser,authorizeUser(['Admin']),checkSchema(categoryValidationSchema), categoryCltr.createCategory)
+app.get('/api/listallCategory',categoryCltr.listAllCategory)
+app.delete('/api/admin/category/:id',authenticateUser, authorizeUser(['Admin']), categoryCltr.deleteCategory)
 
 //product Api
 app.post('/api/product',authenticateUser,authorizeUser(['Admin']),checkSchema(productValidationSchema),productCltr.createProduct )
@@ -51,10 +54,12 @@ app.post('/api/admin/deliverman/register',authenticateUser,authorizeUser(['Admin
 
 //order api
 app.post('/api/user/order',authenticateUser,checkSchema(orderValidationSchema),ordersCltr.createOrder)
+app.get('/api/listAllOders',authenticateUser,authorizeUser(['Admin']), ordersCltr.listAllOrder)
 app.delete('/api/user/order/:id',authenticateUser,authorizeUser(['customer']),ordersCltr.delete)
 
 //adress
 app.post('/api/user/order/address',authenticateUser,checkSchema(addressValidationSchema),AddressCltr.createAddress)
+app.get('/api/listAllAddress',authenticateUser, authorizeUser(['Admin']), AddressCltr.listAllAddress)
 
 //cart Api
 app.post('/api/user/cart',authenticateUser,authorizeUser(['customer']),checkSchema(cartValidationSchema), cartCltr.createCart)
@@ -62,3 +67,116 @@ app.post('/api/user/cart',authenticateUser,authorizeUser(['customer']),checkSche
 app.listen(PORT, () => {
     console.log('server is running on port', PORT)
 })
+
+// const express = require('express')
+// const { checkSchema } = require('express-validator')
+// const cors = require('cors')
+// const multer = require('multer')
+// const path = require('path')
+// const PORT = 3034
+// const app = express()
+// app.use(express.json())
+// app.use(cors())
+// require('dotenv').config()
+
+// const configureDB = require('./config/db')
+// configureDB()
+
+// const storage = multer.diskStorage({
+//     destination : function (req,file,cb) {
+//         return cb (null , "./public/Images")
+//     },
+//     filename:function(req,file,cb){
+//         return cb(null, ${Date.now()}_${file.originalname})
+//     }
+// })
+
+// const upload = multer ({storage})
+
+// //upload images
+// app.post('/api/upload', upload.single('file'), (req, res) =>{
+//     console.log(req.body)
+//     console.log(req.file)
+// })
+
+// //user
+// const User = require('./app/models/user-model')
+// const usersCltr = require('./app/controllers/user-cltr')
+
+// //register and login
+// const { registerSchema, loginSchema, updateUserSchema } = require('./app/validators/user-validation')
+// const { authenticateUser, authorizeUser } = require('./app/middlewares/auth')
+
+// //operators
+// const { operatorSchema, operatorUpdateSchema } = require('./app/validators/operator-validation')
+// const operatorsCltr = require('./app/controllers/operator-cltr')
+
+// //packages
+// const { packageSchema, packageUpdateSchema } = require('./app/validators/package-validations')
+// const packagesCltr = require('./app/controllers/package-cltr')
+
+// //channels
+// const channelsCltr = require('./app/controllers/channel-cltr')
+// const { channelsSchema , channelUpdateSchema} = require('./app/validators/channel-validation')
+
+// //customers
+// const customerCltr = require('./app/controllers/customer-cltr')
+// const {customerSchema, customerUpdateSchema, customerPackageSchema} = require('./app/validators/customer-validation')
+
+// //orders
+// const { orderSchema } = require('./app/validators/order-validations')
+// const ordersCltr = require('./app/controllers/order-cltr')
+
+
+
+// //users Api's
+
+// app.post('/api/users/register', checkSchema(registerSchema), usersCltr.register)
+// app.post('/api/users/login', checkSchema(loginSchema), usersCltr.login)
+// app.get('/api/users/profile', authenticateUser, usersCltr.profile)
+// app.put('/api/users/:id', authenticateUser, checkSchema(updateUserSchema), usersCltr.updateUser)
+// app.delete('/api/users/:id', authenticateUser, usersCltr.deleteUser)
+// app.get('/api/listAllUsers', authenticateUser, authorizeUser(['admin']), usersCltr.listAllUsers)
+// app.get('/api/listSingleUser/:id', authenticateUser, authorizeUser(['admin']), usersCltr.listSingleUser)
+
+
+// //operators api
+// app.post('/api/operator', authenticateUser, authorizeUser(['admin']), checkSchema(operatorSchema), operatorsCltr.create)
+// app.get('/api/listAllOperators', authenticateUser, authorizeUser(['admin']), operatorsCltr.listAllOperators)
+// app.get('/api/listSingleOperator/:operatorId', authenticateUser, authorizeUser(['admin']), operatorsCltr.listSingleOperator)
+// app.put('/api/operator/:operatorId', authenticateUser, authorizeUser(['operator']), checkSchema(operatorUpdateSchema), operatorsCltr.updateOperator)
+// app.delete('/api/operator/:operatorId', authenticateUser, authorizeUser(['admin']), operatorsCltr.deleteOperator)
+
+// //packages api's
+// app.post('/api/packages', authenticateUser, authorizeUser(['admin']), checkSchema(packageSchema), packagesCltr.create)
+// app.get('/api/listAllPackages', packagesCltr.listAllPackages)
+// app.get('/api/listOnePackage/:packageId', packagesCltr.listSinglePAckage)
+// app.put('/api/packages/:packageId', authenticateUser, authorizeUser(['admin']), checkSchema(packageUpdateSchema), packagesCltr.updatePackage)
+// app.delete('/api/packages/:packageId', authenticateUser, authorizeUser(['admin']), packagesCltr.deletePackage)
+
+// //channels api
+// app.post('/api/channels',authenticateUser,authorizeUser(['admin']),checkSchema(channelsSchema),channelsCltr.create)
+// app.get('/api/listAllchannels',checkSchema(channelsSchema),channelsCltr.listAllChannels)
+// app.get('/api/listOneChannel/:id',checkSchema(channelsSchema),channelsCltr.listOneChannel)
+// app.put('/api/updateChannel/:id', authenticateUser, authorizeUser(['admin']),checkSchema(channelUpdateSchema),channelsCltr.updateChannel)
+// app.delete('/api/deleteChannel/:id', authenticateUser, authorizeUser(['admin']),channelsCltr.deleteChannel)
+
+
+// //customers api
+// app.post('/api/customers',authenticateUser, authorizeUser(['operator']), checkSchema(customerSchema),customerCltr.create)
+// app.get('/api/listAllCustomers',authenticateUser,authorizeUser(['operator']),customerCltr.listAllCustomers)
+// app.get('/api/singleCustomer/:id',authenticateUser,authorizeUser(['operator']),customerCltr.singleCustomer)
+// app.put('/api/customer/:customerId', authenticateUser, authorizeUser(['operator']), checkSchema(customerUpdateSchema), customerCltr.updateCustomer)
+// app.delete('/api/customer/:id',authenticateUser,authorizeUser(['operator']),customerCltr.deleteCustomer)
+// app.post('/api/customers/:customerId/packages', checkSchema(customerSchema),customerCltr.assignPackage)
+// app.post('/api/customers/:customerId/channels', checkSchema(customerSchema), customerCltr.assignChannel)
+
+// //orders api
+// app.post('/api/orders', authenticateUser, authorizeUser(['operator']), checkSchema(orderSchema), ordersCltr.create)
+// app.get('/api/orders', authenticateUser, authorizeUser(['admin']), ordersCltr.list)
+
+
+
+// app.listen(PORT, ()=>{
+//     console.log('server running on port', PORT)
+// })

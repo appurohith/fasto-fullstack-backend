@@ -20,4 +20,38 @@ categoryCltr.createCategory = async (req, res ) => {
     }
 }
 
+
+categoryCltr.listAllCategory = async (req, res) => {
+    try {
+        const category = await Category.find()
+        res.status(200).json(category)
+    } catch(e) {
+        res.status(500).json(e)
+    }
+}
+
+// productCltr.deleteProduct = async(req, res) => {
+//     const id = req.params.id
+
+//     try {
+//         const product = await Product.findByIdAndDelete({_id:id,Admin:req.user.id})
+//         res.status(200).json(product)
+    
+//     } catch(e) {
+//         res.status(500).json(e)
+//         console.log(e)
+//     }
+// }
+
+categoryCltr.deleteCategory = async (req, res) => {
+    const id = req.params.id
+    try {
+        const category = await Category.findByIdAndDelete({_id: id, Admin:req.user.id})
+        res.status(200).json(category)
+    } catch(e) {
+        res.status(500).json(e)
+    }
+}
+
+
 module.exports = categoryCltr

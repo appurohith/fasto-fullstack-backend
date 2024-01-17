@@ -19,4 +19,24 @@ AddressCltr.createAddress = async(req,res) => {
     }
 }
 
+// productCltr.listProduct = async (req, res) => {
+//     try {
+//         const product = await Product.find()
+
+//         res.status(200).json(product)
+//     } catch(e) {
+//         res.status(500).json(e)
+//     }
+// }
+
+AddressCltr.listAllAddress = async (req, res) => {
+    try {
+        const address = await Address.find()
+
+        res.status(200).json(address)
+    } catch(e){
+        res.status(500).json(e)
+    }
+}
+
 module.exports = AddressCltr
