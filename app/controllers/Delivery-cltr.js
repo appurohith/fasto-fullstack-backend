@@ -35,12 +35,13 @@ deliveryCltr.register = async (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const body = _.pick(req.body, [ 'name','email','password', 'mobile',]); 
+    const body = _.pick(req.body, [ 'username','email','password', 'mobile',]); 
+    // 
     console.log(req.body)
     try {
       
         const user = new User({
-            name:body.name,
+            username:body.username,
             email:body.email,
             password:body.password,
             role:"DeliveryMan"
@@ -59,6 +60,7 @@ deliveryCltr.register = async (req, res) => {
         // Save the new delivery instance
         await delivery.save();
         await delivery.populate("UserId")
+    
         // Send the response
         return res.json(delivery);
     } catch (e) {
