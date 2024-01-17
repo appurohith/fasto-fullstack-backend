@@ -35,11 +35,8 @@ deliveryCltr.register = async (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const body = _.pick(req.body, [ 'name','email','password', 'mobile',]); 
-    // console.log(req.body)
     const body = _.pick(req.body, [ 'username','email','password', 'mobile',]); 
-    // 
-    console.log(req.body)
+    // console.log(req.body)
     try {
       
         const user = new User({
@@ -54,7 +51,7 @@ deliveryCltr.register = async (req, res) => {
         await user.save()
         // Create a new instance of the DeliveryMan model
         const delivery = new DeliveryMan({
-            name : body.name,
+            username : body.username,
             status: "available",
             mobile: body.mobile,
             UserId: user.id

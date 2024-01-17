@@ -28,7 +28,7 @@ const deliverymanValidationSchema = {
                 if(user) {
                     throw new Error('email already taken')
                 } else {
-                    console.log("hhh");
+                    // console.log("hhh");
                     return true 
                 }
             }
