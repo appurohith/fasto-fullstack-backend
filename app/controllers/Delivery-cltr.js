@@ -35,14 +35,11 @@ deliveryCltr.register = async (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
 
-<<<<<<< HEAD
     const body = _.pick(req.body, [ 'name','email','password', 'mobile',]); 
     // console.log(req.body)
-=======
     const body = _.pick(req.body, [ 'username','email','password', 'mobile',]); 
     // 
     console.log(req.body)
->>>>>>> 8aa4c2995a2fd69b5fb010a548fc057c72cb023e
     try {
       
         const user = new User({
