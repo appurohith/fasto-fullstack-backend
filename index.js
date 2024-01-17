@@ -31,8 +31,6 @@ const {addressValidationSchema} = require('./app/validations/address-validation'
 const AddressCltr = require('./app/controllers/address-cltr')
 
 //user APIS
-
-
 app.post('/api/user/register',checkSchema(registerSchema), usersCltr.register)
 app.post('/api/user/login',checkSchema(loginSchema), usersCltr.login)
 app.get('/api/user/getSingleProfile',authenticateUser, usersCltr.userProfile)
@@ -53,6 +51,8 @@ app.delete('/api/admin/products/:id',authenticateUser,authorizeUser(['Admin']), 
 
 //deliveryman api
 app.post('/api/admin/deliverman/register',authenticateUser,authorizeUser(['Admin']), checkSchema(deliverymanValidationSchema), deliveryCltr.register)
+app.get('/api/admin/getAllDeliveryman',authenticateUser,authorizeUser(['Admin']), deliveryCltr.listAllDeliveryman)
+app.delete('/api/admin/deliveryman/:id', authenticateUser, authorizeUser(['Admin']), deliveryCltr.deleteDeliveryman)
 
 //order api
 app.post('/api/user/order',authenticateUser,checkSchema(orderValidationSchema),ordersCltr.createOrder)

@@ -65,6 +65,27 @@ deliveryCltr.register = async (req, res) => {
         console.log(e);
         return res.status(500).json(e);
     }
-};
+}
+
+deliveryCltr.listAllDeliveryman = async (req, res) => {
+    try {
+        const deliveryman = await DeliveryMan.find()
+
+        res.status(200).json(deliveryman)
+    } catch(e){
+        res.status(500).json(e)
+    }
+}
+
+deliveryCltr.deleteDeliveryman = async (req, res) => {
+    const id = req.params.id
+
+    try {
+        const deliveryman = await DeliveryMan.findByIdAndDelete({_id:id,Admin:req.user.id})
+        res.status(200).json(deliveryman)
+    } catch(e){
+        res.status(500).json(e)
+    }
+}
 
 module.exports = deliveryCltr;
