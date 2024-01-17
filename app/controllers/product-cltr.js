@@ -19,7 +19,9 @@ productCltr.createProduct = async (req,res) => {
         res.json(product)
 
     }catch(e){
+        console.log(e)
         res.status(500).json(e)
+        
     }
 }
 
@@ -32,6 +34,38 @@ productCltr.listProduct = async (req, res) => {
         res.status(500).json(e)
     }
 }
+
+// operatorsCltr.updateOperator = async (req, res) => {
+//     const errors = validationResult(req)
+//     if (!errors.isEmpty()) {
+//         return res.status(400).json({ errors: errors.array() })
+//     }
+//     const id = req.params.operatorId
+//     const body = _.pick(req.body, ['mobile'])
+//     try {
+//         const operator = await OperatorProfile.findByIdAndUpdate(id, body, { new: true })
+//         res.status(200).json(operator)
+//     } catch (e) {
+//         res.status(500).json(e)
+//     }
+// }
+
+productCltr.updateProduct = async (req, res) => {
+    const errors = validationResult(req)
+    if(!errors.isEmpty()){
+        return res.status(400).json({errors: errors.array() })
+    }
+    const id = req.params.id
+    const body = _.pick(req.body, ['description','price','stock'])
+    try {
+        const product = await Product.findByIdAndUpdate(id, body, {new: true})
+        res.status(200).json(product)
+    } catch(e){
+        res.status(500).json(e)
+    }
+}
+
+
 
 productCltr.deleteProduct = async(req, res) => {
     const id = req.params.id

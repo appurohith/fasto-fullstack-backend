@@ -51,4 +51,31 @@ const productValidationSchema  = {
     }
 }
 
-module.exports = productValidationSchema
+const productUpdateValidationSchema = {
+    description : {
+        notEmpty : {
+            errorMessage : 'product description is required'
+        }
+    },
+    price : {
+        notEmpty : {
+            errorMessage : 'product price is required'
+        },
+        isNumeric : {
+            errorMessage : 'product price should be in number'
+        }
+    },
+    stock : {
+        notEmpty : {
+            errorMessage : 'product stock is required'
+        },
+        isNumeric : {
+            errorMessage : 'stock should be in number'
+        }
+    }
+}
+
+module.exports = {
+    productSchema :productValidationSchema,
+    productUpdateSchema :productUpdateValidationSchema
+}

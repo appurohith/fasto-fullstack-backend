@@ -22,7 +22,7 @@ const {authenticateUser, authorizeUser} = require('./app/middlewares/auth')
 
 const {registerSchema, loginSchema } = require('./app/validations/user-validation')
 const categoryValidationSchema = require('./app/validations/category-validation')
-const productValidationSchema = require('./app/validations/product-validation')
+const {productSchema, productUpdateSchema}= require('./app/validations/product-validation')
 const deliverymanValidationSchema = require('./app/validations/delivery-validation')
 const orderValidationSchema = require('./app/validations/order-validation')
 const cartValidationSchema = require('./app/validations/cart-validation')
@@ -44,9 +44,11 @@ app.post('/api/category',authenticateUser,authorizeUser(['Admin']),checkSchema(c
 app.get('/api/listallCategory',categoryCltr.listAllCategory)
 app.delete('/api/admin/category/:id',authenticateUser, authorizeUser(['Admin']), categoryCltr.deleteCategory)
 
+
 //product Api
-app.post('/api/product',authenticateUser,authorizeUser(['Admin']),checkSchema(productValidationSchema),productCltr.createProduct )
+app.post('/api/product',authenticateUser,authorizeUser(['Admin']),checkSchema(productSchema),productCltr.createProduct )
 app.get('/api/products',productCltr.listProduct)
+app.put('/api/admin/product/:id',authenticateUser, authorizeUser(['Admin']),checkSchema(productUpdateSchema), productCltr.updateProduct)
 app.delete('/api/admin/products/:id',authenticateUser,authorizeUser(['Admin']), productCltr.deleteProduct)
 
 //deliveryman api
