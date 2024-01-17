@@ -10,9 +10,9 @@ const User = require('../models/user-model')
 //     }
 // }
 const deliverymanValidationSchema = {
-    username: {
+    name: {
         notEmpty: {
-            errorMessage: 'username is required'
+            errorMessage: 'name is required'
         }
     },
     email: {
