@@ -65,6 +65,7 @@ app.get('/api/listAllAddress',authenticateUser, authorizeUser(['Admin']), Addres
 
 //cart Api
 app.post('/api/user/cart',authenticateUser,authorizeUser(['customer']),checkSchema(cartValidationSchema), cartCltr.createCart)
+app.delete('/api/user/cart/:id',authenticateUser, authorizeUser(['customer']), cartCltr.deleteCart)
 
 app.listen(PORT, () => {
     console.log('server is running on port', PORT)

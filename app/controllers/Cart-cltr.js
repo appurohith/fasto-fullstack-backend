@@ -22,5 +22,16 @@ cartCltr.createCart = async (req, res) => {
     }
 }
 
+
+cartCltr.deleteCart = async (req, res) => {
+    const id = req.params.id
+    try {
+        const cart = await Cart.findByIdAndDelete({_id:id,customer:req.user.id})
+        res.status(200).json(cart)
+    } catch(e) {
+        res.status(500).json(e)
+    }
+}
+
 module.exports = cartCltr
  
