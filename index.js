@@ -45,7 +45,7 @@ app.delete('/api/admin/category/:id',authenticateUser, authorizeUser(['Admin']),
 
 //product Api
 app.post('/api/product',authenticateUser,authorizeUser(['Admin']),checkSchema(productSchema),productCltr.createProduct )
-app.get('/api/products',productCltr.listProduct)
+app.get('/api/getAllProducts',productCltr.listProduct)
 app.put('/api/admin/product/:id',authenticateUser, authorizeUser(['Admin']),checkSchema(productUpdateSchema), productCltr.updateProduct)
 app.delete('/api/admin/products/:id',authenticateUser,authorizeUser(['Admin']), productCltr.deleteProduct)
 
