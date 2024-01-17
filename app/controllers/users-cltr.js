@@ -17,17 +17,20 @@ usersCltr.register = async (req, res) => {
         const salt =await bcryptjs.genSalt()
         const hashedPassword = await bcryptjs.hash(user.password, salt)
         user.password = hashedPassword
-      console.log('1')
+      
         const userlength =  await User.countDocuments()
-        console.log(userlength)
+        // console.log(userlength)
         if(userlength === 0 ){
             user.role = 'Admin'
-            console.log('admin')
+           
         }else
         if(userlength > 0 && user.role === 'Admin'){
             user.role = 'customer'
+        }else
+        if(user.role ==='DeliveryMan'){
+          user.role = 'customer'
         }
-        console.log('3')
+        
         await user.save()
         res.status(201).json(user)
     } catch(err){
@@ -87,10 +90,12 @@ usersCltr.login = async(req,res) => {
     const body = _.pick(req.body,["email","password"])
     try{
         const user = await User.findOne({email : body.email})
+        console.log(user);
         if(!user){
             return res.status(404).json({errors:'invalidEmail'})
         }
         const result = await bcryptjs.compare(body.password,user.password)
+        console.log(result,body.password,user.password);
         if(!result){
             return res.status(404).json({errors:'invalid password'})
         }
