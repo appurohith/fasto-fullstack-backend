@@ -56,7 +56,7 @@ productCltr.updateProduct = async (req, res) => {
         return res.status(400).json({errors: errors.array() })
     }
     const id = req.params.id
-    const body = _.pick(req.body, ['description','price','stock'])
+    const body = _.pick(req.body, ['name','description','price','stock'])
     try {
         const product = await Product.findByIdAndUpdate(id, body, {new: true})
         res.status(200).json(product)

@@ -52,6 +52,21 @@ const productValidationSchema  = {
 }
 
 const productUpdateValidationSchema = {
+    name  :{
+        notEmpty : {
+             errorMessage : 'name of category is required'
+        }
+     },
+     custom: {
+         options: async function(value){
+             const user = await Product.findOne({ name: value })
+             if(user) {
+                 throw new Error('name already taken')
+             } else {
+                 return true 
+             }
+         }
+     },
     description : {
         notEmpty : {
             errorMessage : 'product description is required'
