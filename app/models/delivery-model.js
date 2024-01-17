@@ -13,6 +13,7 @@ const deliveryManSchema = new Schema({
         enum : ['available', 'outForDelivery']
     },
     mobile:String,
+    email:String
       
 },{timestamps:true})
 

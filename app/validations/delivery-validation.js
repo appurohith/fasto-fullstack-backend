@@ -1,19 +1,46 @@
 const DeliveryMan = require('../models/delivery-model')
-
+const User = require('../models/user-model')
+// const passwordSchema = {
+//     notEmpty: {
+//         errorMessage: 'password is required'
+//     },
+//     isLength: {
+//         options: { min: 8, max: 128 },
+//         errorMessage: 'password should be between 8 - 128 characters'
+//     }
+// }
 const deliverymanValidationSchema = {
-    name: {
-        notEmpty:{
-            errorMessage: 'name is required'
+    username: {
+        notEmpty: {
+            errorMessage: 'username is required'
+        }
+    },
+    email: {
+        notEmpty: {
+            errorMessage: 'email is required'
+        },
+        isEmail: {
+            errorMessage: 'email should be in a valid format'
         },
         custom: {
             options: async function(value){
-                const user = await DeliveryMan.findOne({ name: value })
+                const user = await User.findOne({ email: value })
                 if(user) {
-                    throw new Error('name already taken')
+                    throw new Error('email already taken')
                 } else {
+                    console.log("hhh");
                     return true 
                 }
             }
+        }
+    },
+    password: {
+        notEmpty: {
+            errorMessage: 'password is required'
+        },
+        isLength: {
+            options: { min: 8, max: 128 },
+            errorMessage: 'password should be between 8 - 128 characters'
         }
     },
         mobile: {
@@ -28,16 +55,21 @@ const deliverymanValidationSchema = {
             errorMessage: 'mobile should be a number'
         }
     },
-    status : {
-        notEmpty : {
-            errorMessage : 'status is required'
-        },
-        isIn : {
-            options : ['available', 'outForDelivery'],
-            errorMessage : 'status should be either available or outForDelivery '
-        }
-    }
-
+    // status : {
+    //     notEmpty : {
+    //         errorMessage : 'status is required'
+    //     },
+    //     isIn : {
+    //         options : ['available', 'outForDelivery'],
+    //         errorMessage : 'status should be either available or outForDelivery '
+    //     }
+    // },
+    // UserId:{
+    //     notEmpty:{
+    //         errorMessage:'userid is required'
+    //     }
+    // }
+  
 }
 
 module.exports = deliverymanValidationSchema
