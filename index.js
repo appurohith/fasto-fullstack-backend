@@ -41,6 +41,7 @@ app.put('/api/user/profile/editprofile',authenticateUser, usersCltr.updateProfil
 app.post('/api/category',authenticateUser,authorizeUser(['Admin']),checkSchema(categoryValidationSchema), categoryCltr.createCategory)
 app.get('/api/listallCategory',categoryCltr.listAllCategory)
 app.delete('/api/admin/category/:id',authenticateUser, authorizeUser(['Admin']), categoryCltr.deleteCategory)
+app.put('/api/admin/updateCategory/:id', authenticateUser, authorizeUser(['Admin']), categoryCltr.updateCategory)
 
 
 //product Api
