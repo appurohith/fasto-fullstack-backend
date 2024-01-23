@@ -12,8 +12,6 @@ productCltr.createProduct = async (req,res) => {
     
     const body = _.pick(req.body,['name','description','price','stock','minStock','categories',])
     // body.images = req.file
-    console.log(req.file.filename)
-    return res.json(body,images)
     const categoriesArr = []
     categoriesArr.push({categoryId: body.categories})
     body.categories = categoriesArr
