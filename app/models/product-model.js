@@ -14,7 +14,7 @@ const ProductSchema = new Schema ({
     price : Number,
     stock : Number,
     minStock : Number,
-    images : [String]
+    images : String
 
 })
 

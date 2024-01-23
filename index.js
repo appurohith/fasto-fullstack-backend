@@ -3,6 +3,9 @@ const express = require('express')
 const cors = require('cors')
 const PORT = 3040
 const app = express()
+const multer = require('multer')
+const path = require('path')
+const staticpath = path.join(__dirname, '/images')
 
 app.use(cors())
 app.use(express.json())
@@ -11,12 +14,28 @@ const {checkSchema } = require('express-validator')
 
 const configureDB = require('./config/db')
 configureDB()
+app.use('/images', express.static(staticpath))
+
+const storage = multer.diskStorage({
+    destination: (req,file,cb) => {
+        cb(null, "/images")
+    },
+    filename:(req,file,cb) => {
+        console.log(file)
+        cb(null, Date.now() + path.extname(file.originalname))
+    }
+})
+
+const upload = multer({storage: storage})
 
 const usersCltr = require('./app/controllers/users-cltr')
 const categoryCltr = require('./app/controllers/Category-cltr')
 const productCltr = require('./app/controllers/product-cltr')
 const deliveryCltr = require('./app/controllers/Delivery-cltr')
 const ordersCltr = require('./app/controllers/order-cltr')
+
+
+
 
 
 
@@ -47,7 +66,7 @@ app.put('/api/admin/updateCategory/:id', authenticateUser, authorizeUser(['Admin
 
 
 //product Api
-app.post('/api/product',authenticateUser,authorizeUser(['Admin']),checkSchema(productSchema),productCltr.createProduct )
+app.post('/api/product',upload.single('images'),authenticateUser,authorizeUser(['Admin']),checkSchema(productSchema),productCltr.createProduct )
 app.get('/api/getAllProducts',productCltr.listProduct)
 app.put('/api/admin/product/:id',authenticateUser, authorizeUser(['Admin']),checkSchema(productUpdateSchema), productCltr.updateProduct)
 app.delete('/api/admin/products/:id',authenticateUser,authorizeUser(['Admin']), productCltr.deleteProduct)
