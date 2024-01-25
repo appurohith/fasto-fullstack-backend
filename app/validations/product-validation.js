@@ -3,10 +3,10 @@ const Product = require('../models/product-model')
 const productValidationSchema  = {
     name  :{
        notEmpty : {
-            errorMessage : 'name of category is required'
+            errorMessage : 'name of Product is required'
        }
     },
-    custom: {
+    custom: { 
         options: async function(value){
             const user = await Product.findOne({ name: value })
             if(user) {
@@ -47,7 +47,9 @@ const productValidationSchema  = {
         }
     },
     category : {
-        errorMessage : 'categoryId missing'
+        notEmpty : {
+            errorMessage : 'categoryId missing'
+        }
     }
 }
 

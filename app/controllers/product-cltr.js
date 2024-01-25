@@ -9,20 +9,22 @@ productCltr.createProduct = async (req,res) => {
     if(!errors.isEmpty()){
         res.status(400).json({errors:errors.array()})
     }
+    // console.log(req.body)
+    const body = _.pick(req.body,['name','description','price','stock','minStock','category',"image"])
+    // console.log(req.file)
+    body.image = req.file.filename
     
-    const body = _.pick(req.body,['name','description','price','stock','minStock','categories',])
-    // body.images = req.file
-    const categoriesArr = []
-    categoriesArr.push({categoryId: body.categories})
-    body.categories = categoriesArr
+    // const categoriesArr = []
+    // categoriesArr.push({categoryId: body.categories})
+    // body.categories = categoriesArr
     try{
         const product = new Product(body)
         await product.save()
         res.json(product)
 
     }catch(e){
-        console.log(e)
-        res.status(500).json(e)
+        // console.log(e)
+        res.status(500).json(e)  
         
     }
 }
@@ -58,7 +60,7 @@ productCltr.updateProduct = async (req, res) => {
 productCltr.deleteProduct = async(req, res) => {
     const id = req.params.id
     try {
-        const product = await Product.findByIdAndDelete({_id:id,Admin:req.user.id})
+        const product = await Product.findByIdAndDelete({_id: id,Admin:req.user.id})
         res.status(200).json(product)
     
     } catch(e) {
