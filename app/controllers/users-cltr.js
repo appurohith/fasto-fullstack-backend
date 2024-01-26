@@ -132,41 +132,40 @@ usersCltr.listAllUser = async (req, res) => {
 
 usersCltr.updateProfile = async (req, res) => {
     const errors = validationResult(req);
-  
     if (!errors.isEmpty()) {
-      return res.status(400).json({ error: errors });
-    } else {
-      const body = _.pick(req.body, ["newPassword", "changePassword"]);
-  
-      try {
-        if (body.newPassword === body.changePassword) {
-         
-          const tempUser = await User.findById(req.user.id);
-        
-          if (!tempUser) {
-            return res.status(203).json({ error: "User not found" });
-          }
-  
-          const salt = await bcryptjs.genSalt();
-          const encryptedPwd = await bcryptjs.hash(body.changePassword, salt);
-  
-         
-          const user = await User.findOneAndUpdate(
-            { _id: req.user.id}, {password: encryptedPwd },
-            { new: true }
-          );
-
-  
-          return res.status(200).json(user);
-        } else {
-          
-          return res.status(400).json({ error: "Passwords do not match" });
-        }
-      } catch (error) {
-        console.error(error);
-        return res.status(500).json({ error: "Internal Server Error" });
+      return res.status(400).json({ error: errors.array() });
+    } 
+      const user = _.pick(req.body, ["currentPassword","newPassword", "confirmPassword"])
+      const { currentPassword, newPassword, confirmPassword } = user
+      console.log(req.user.id)
+      const currentuser = await User.findById(req.user.id)
+      console.log(currentPassword)
+      console.log(currentuser.password)
+      
+     try{
+      if(!currentuser){
+        return res.status(400).json({error:"User not found"})
       }
-    }
+      const match = await bcryptjs.compare(currentPassword,currentuser.password)
+      console.log(match)
+      if(!match){
+        return res.status(400).json({error:"Current password is incorrect"})
+      }
+      if(newPassword !== confirmPassword){
+        return res.status(400).json({error:"New passwords do not match"})
+      }
+      const salt = await bcryptjs.genSalt()
+      const hashedPassword = await bcryptjs.hash(newPassword,salt)
+      const updateUser = await User.findByIdAndUpdate(
+        req.user.id,
+        {password:hashedPassword},
+        {new:true}
+      )
+      return res.status(200).json(updateUser)
+     }catch(error){
+      console.log(error)
+      return res.status(500).json({error: "Internal Server Error"})
+     }
   };
   
 
