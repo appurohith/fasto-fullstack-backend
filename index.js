@@ -18,7 +18,7 @@ app.use('/images', express.static(staticpath))
 
 const storage = multer.diskStorage({
     destination: (req,file,cb) => {
-        cb(null, "/images")
+        cb(null, "images")
     },
     filename:(req,file,cb) => {
         console.log(file)
@@ -66,7 +66,7 @@ app.put('/api/admin/updateCategory/:id', authenticateUser, authorizeUser(['Admin
 
 
 //product Api
-app.post('/api/product',upload.single('images'),authenticateUser,authorizeUser(['Admin']),checkSchema(productSchema),productCltr.createProduct )
+app.post('/api/product',upload.single('image'),authenticateUser,authorizeUser(['Admin']),checkSchema(productSchema),productCltr.createProduct )
 app.get('/api/getAllProducts',productCltr.listProduct)
 app.put('/api/admin/product/:id',authenticateUser, authorizeUser(['Admin']),checkSchema(productUpdateSchema), productCltr.updateProduct)
 app.delete('/api/admin/products/:id',authenticateUser,authorizeUser(['Admin']), productCltr.deleteProduct)

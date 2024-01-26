@@ -4,17 +4,21 @@ const{ Schema, model} = mongoose
 
 const ProductSchema = new Schema ({
     name : String,
-    categories : [{
-        categoryId : {
-            type : Schema.Types.ObjectId,
-            ref : "Category"
-        } 
-    }],
+    // categories : [{
+    //     categoryId : {
+    //         type : Schema.Types.ObjectId,
+    //         ref : "Category"
+    //     } 
+    // }],
+    category : {
+        type : Schema.Types.ObjectId,
+        ref : "Category"
+    },
     description : String,
     price : Number,
     stock : Number,
     minStock : Number,
-    images : String
+    image : String
 
 })
 
