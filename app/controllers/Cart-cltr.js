@@ -31,6 +31,15 @@ cartCltr.updateCart = async(req,res) =>{
     }
 }
 
+cartCltr.listCart = async(req, res) => {
+    try{
+        const cart = await Cart.find()
+        res.status(200).json(cart)
+    } catch(e){
+        res.status(500).json(e)
+    }
+}
+
 
 cartCltr.deleteCart = async (req, res) => {
     const id = req.params.id

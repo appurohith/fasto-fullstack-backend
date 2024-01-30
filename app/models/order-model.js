@@ -16,7 +16,7 @@ const orderSchema = new Schema({
             quantity: String,
             price:String
         }
-    ] ,
+    ],
     addressId : {
         type : Schema.Types.ObjectId,
         ref : 'Address'
