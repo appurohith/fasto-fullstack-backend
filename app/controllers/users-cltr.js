@@ -2,6 +2,7 @@ const User = require('../models/user-model')
 const bcryptjs = require('bcryptjs')
 const _ = require('lodash')
 const jwt = require('jsonwebtoken')
+const Cart = require("../models/cart-model")
 const { validationResult } = require('express-validator')
 
 const usersCltr = {}
@@ -32,9 +33,12 @@ usersCltr.register = async (req, res) => {
         }
         
         await user.save()
+        const cart = new Cart({customerId : user._id})
+        await cart.save()
         res.status(201).json(user)
     } catch(err){
         res.status(500).json(err)
+        console.log(err)
     }
 }
 
