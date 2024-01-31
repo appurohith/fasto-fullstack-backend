@@ -85,7 +85,7 @@ app.delete('/api/user/order/:id',authenticateUser,authorizeUser(['customer']),or
 // app.post('/api/user/order/address',authenticateUser,checkSchema(addressValidationSchema),AddressCltr.createAddress)
 // app.get('/api/listAllAddress',authenticateUser, authorizeUser(['Admin']), AddressCltr.listAllAddress)
 // app.post('/api/address',authenticateUser,checkSchema(addressValidationSchema),addressCtlr.createAddress)
-app.post('/api/address',addressCtlr.createAddress)
+app.post('/api/address',authenticateUser,checkSchema(addressValidationSchema),addressCtlr.createAddress)
 
 //cart Api
 app.post('/api/user/cart',authenticateUser,authorizeUser(['customer']),checkSchema(cartValidationSchema), cartCltr.createCart)
