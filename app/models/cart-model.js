@@ -18,6 +18,6 @@ const cartSchema = new Schema({
         ref : 'User'
     },
     products : []
-})
+},{timestamps:true})
 const Cart = model("Cart", cartSchema)
 module.exports = Cart
