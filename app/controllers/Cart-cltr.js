@@ -34,7 +34,7 @@ cartCltr.updateCart = async(req,res) =>{
 cartCltr.listCart = async(req, res) => {
     try{
         const {cartId} = req.params
-        const cart = await Cart.findOne({ _id : cartId, customerId :req.user.id })
+        const cart = await Cart.find( {customerId:req.user.id} )
         res.status(200).json(cart)
         
     } catch(e){

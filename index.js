@@ -91,7 +91,7 @@ app.post('/api/address',authenticateUser,checkSchema(addressValidationSchema),ad
 app.post('/api/user/cart',authenticateUser,authorizeUser(['customer']),checkSchema(cartValidationSchema), cartCltr.createCart)
 app.delete('/api/user/cart/:id',authenticateUser, authorizeUser(['customer']), cartCltr.deleteCart)
 app.put("/api/updateCart",authenticateUser,cartCltr.updateCart)
-app.get('/api/getUserCart/:cartId',authenticateUser,authorizeUser(['customer']),cartCltr.listCart)
+app.get('/api/getUserCart',authenticateUser,authorizeUser(['customer']),cartCltr.listCart)
 
 
 app.listen(PORT, () => {
