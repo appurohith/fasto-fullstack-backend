@@ -48,8 +48,8 @@ const deliverymanValidationSchema = require('./app/validations/delivery-validati
 const orderValidationSchema = require('./app/validations/order-validation')
 const cartValidationSchema = require('./app/validations/cart-validation')
 const cartCltr = require('./app/controllers/Cart-cltr')
-const {addressValidationSchema} = require('./app/validations/address-validation')
-const AddressCltr = require('./app/controllers/address-cltr')
+const addressValidationSchema = require('./app/validations/address-validation')
+const addressCtlr = require('./app/controllers/address-cltr')
 
 //user APIS
 app.post('/api/user/register',checkSchema(registerSchema), usersCltr.register)
@@ -82,8 +82,10 @@ app.get('/api/listAllOders',authenticateUser,authorizeUser(['Admin']), ordersClt
 app.delete('/api/user/order/:id',authenticateUser,authorizeUser(['customer']),ordersCltr.delete)
 
 //adress
-app.post('/api/user/order/address',authenticateUser,checkSchema(addressValidationSchema),AddressCltr.createAddress)
-app.get('/api/listAllAddress',authenticateUser, authorizeUser(['Admin']), AddressCltr.listAllAddress)
+// app.post('/api/user/order/address',authenticateUser,checkSchema(addressValidationSchema),AddressCltr.createAddress)
+// app.get('/api/listAllAddress',authenticateUser, authorizeUser(['Admin']), AddressCltr.listAllAddress)
+// app.post('/api/address',authenticateUser,checkSchema(addressValidationSchema),addressCtlr.createAddress)
+app.post('/api/address',addressCtlr.createAddress)
 
 //cart Api
 app.post('/api/user/cart',authenticateUser,authorizeUser(['customer']),checkSchema(cartValidationSchema), cartCltr.createCart)

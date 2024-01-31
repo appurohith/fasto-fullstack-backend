@@ -1,27 +1,65 @@
+const Address = require('../models/address-model')
+
 const addressValidationSchema = {
-    street: {
+    building:{
         notEmpty:{
-            errorMessage:'street name is required'
+            errorMessage:"Building cannot be empty."
+        },
+        isLength:{
+            options:{
+                min:2,
+            },
+            errorMessage:"Atleast 2 characters required."
         }
     },
     locality:{
         notEmpty:{
-            errorMessage:'locality is required'
+            errorMessage:"locality cannot be empty."
+        },
+        isLength:{
+            options:{min:2},
+            errorMessage:"Atleast 2 characters required."
         }
     },
     city:{
         notEmpty:{
-            errorMessage:'city name is required'
+            errorMessage:"city cannot be empty."
+        },
+        isLength:{
+            options:{min:2},
+            errorMessage:"Atleast 2 characters required."
         }
     },
-     state:{
+    state:{
         notEmpty:{
-            errorMessage: 'state name is required'
+            errorMessage:"state cannot be empty."
+        },
+        isLength:{
+            options:{min:2},
+            errorMessage:"Atleast 2 characters required."
         }
     },
-    
+    pincode:{
+        notEmpty:{
+            errorMessage:"pincode cannot be empty."
+        },
+        isLength:{
+            options:{min:2},
+            errorMessage:"Atleast 2 characters required."
+        }
+    },
+    country:{
+        notEmpty:{
+            errorMessage:"country cannot be empty."
+        },
+        isLength:{
+            options:{min:2},
+            errorMessage:"Atleast 2 characters required."
+        }
+    }
 }
 
-module.exports = {
- addressValidationSchema
-}
+
+module.exports = addressValidationSchema
+
+
