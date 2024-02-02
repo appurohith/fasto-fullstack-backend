@@ -92,8 +92,10 @@ app.put('/api/updateaddress/:addressId',authenticateUser, addressCtlr.updateAddr
 //cart Api
 app.post('/api/user/cart',authenticateUser,authorizeUser(['customer']),checkSchema(cartValidationSchema), cartCltr.createCart)
 app.delete('/api/user/cart/:id',authenticateUser, authorizeUser(['customer']), cartCltr.deleteCart)
-app.put("/api/updateCart",authenticateUser,cartCltr.updateCart)
+app.put("/api/updateCart",authenticateUser,authorizeUser(['customer']),cartCltr.updateCart)
 app.get('/api/getUserCart',authenticateUser,authorizeUser(['customer']),cartCltr.listCart)
+app.put('/api/user/inccart/:id',authenticateUser,authorizeUser(['customer']),cartCltr.incCart)
+app.put('/api/user/deccart/:id',authenticateUser,authorizeUser(['customer']),cartCltr.decCart)
 
 
 app.listen(PORT, () => {
