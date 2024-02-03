@@ -69,7 +69,8 @@ cartCltr.incCart = async(req,res) => {
             { $inc: { 'products.$.quantity': 1 } },
             { new: true }
         );
-        res.json(inccart);
+        const product = inccart.products.find(ele => ele.productId === productId)
+        res.json(product);
         console.log(inccart)
     } catch(e){
         console.log(e);
@@ -80,45 +81,18 @@ cartCltr.decCart = async(req,res) => {
     console.log(req.params.id)
     try{
         const deccart = await Cart.findOneAndUpdate(
-            {customerId : req.user.id},
-            {  'products.productId': productId },
+            {customerId : req.user.id,
+              'products.productId': productId },
             { $inc: { 'products.$.quantity': -1 } },
             { new: true }
         );
-        res.json(deccart);
-        console.log(deccart)
+        const product = deccart.products.find(ele => ele.productId === productId)
+        console.log()
+        res.json(product);
     } catch(e){
         console.log(e);
     }
 }
-// cartCltr.decCart = async(req,res) => {
-//     const productId = req.params.id
-//     console.log(productId)
-//     try{
-//         const deccart = await Cart.findOneAndUpdate(
-//             { "products.productId" : productId },
-//             {$inc : {'product.$.quantity' : 1} },
-//             { new : true }
-//         )
-//         res.json(deccart)
-//     }catch(e){
-//         console.log(e)
-//     }
-// }
-
-// cartCltr.incCart = async(req,res) => {
-//     const { productId, quantity } = req.body;
-//     try{
-//         const inccart = await Cart.findOneAndUpdate(
-//             { 'products.productId': productId },
-//             { $inc: { 'products.$.quantity' : quantity } },
-//             { new: true }
-//         );
-//         res.json(inccart);
-//     } catch(e){
-//         console.log(e);
-//     }
-// }
 
 cartCltr.updateCart = async(req,res) =>{
     const productBody = req.body
