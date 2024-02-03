@@ -37,8 +37,8 @@ const orderValidationSchema = {
             errorMessage: 'Status is required'
         },
         isIn:{
-            options:['dispatched','pending','delivered'],
-            errorMessage:'Status should be either dispatched, pending or delivered'
+            options:['pending','delivered'],
+            errorMessage:'Status should be either  pending or delivered'
         }
     }
 }
