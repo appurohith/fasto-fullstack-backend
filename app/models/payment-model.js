@@ -1,9 +1,12 @@
 const mongoose = require('mongoose')
 
-const{ Schema, model} = mongo
+const{ Schema, model} = mongoose
 
 const paymentSchema = new Schema({
-    userId:Schema.Types.ObjectId,
+    customerId : {
+        type:Schema.Types.ObjectId,
+        ref : 'User'
+    },
     amount : Number,
     date : String,
     status : {
