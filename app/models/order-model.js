@@ -13,8 +13,17 @@ const orderSchema = new Schema({
                 type: Schema.Types.ObjectId,
                 ref: 'Product'
             },
-            quantity: String,
-            price:String
+        }
+    ],
+    
+    cart : [
+        {
+            productId : {
+                type : this.schema.Types.ObjectId,
+                ref: 'product'
+            },
+            quantity : String,
+            price : String
         }
     ],
     addressId : {
