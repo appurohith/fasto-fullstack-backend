@@ -13,12 +13,6 @@ ordersCltr.createOrder = async (req, res) => {
     const body = _.pick(req.body, ['cart','addressId','total'])
     body.customerId=req.user.id
     try{
-<<<<<<< HEAD
-        const order = new Order(body)
-        const cart = await Cart.findOne({customerId : req.user.id})
-        await order.save()
-        return res.json(order)
-=======
         const order = new Order(body);
         await order.save();
 
@@ -53,7 +47,6 @@ ordersCltr.createOrder = async (req, res) => {
         // }
         
         // return res.json(populatedOrder)
->>>>>>> a6944b09a25c77d3805e59da93d79ba1edc341b6
     } catch(e){
         console.log(e);
         return res.status(500).json(e);
