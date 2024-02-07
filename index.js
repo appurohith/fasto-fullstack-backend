@@ -82,9 +82,6 @@ app.get('/api/listAllOders',authenticateUser,authorizeUser(['Admin']), ordersClt
 app.delete('/api/user/order/:id',authenticateUser,authorizeUser(['customer']),ordersCltr.delete)
 
 //adress
-// app.post('/api/user/order/address',authenticateUser,checkSchema(addressValidationSchema),AddressCltr.createAddress)
-// app.get('/api/listAllAddress',authenticateUser, authorizeUser(['Admin']), AddressCltr.listAllAddress)
-// app.post('/api/address',authenticateUser,checkSchema(addressValidationSchema),addressCtlr.createAddress)
 app.get('/api/getaddress',authenticateUser,authorizeUser(['Admin','customer']), addressCtlr.getAddress)
 app.post('/api/address',authenticateUser,checkSchema(addressValidationSchema),addressCtlr.createAddress)
 app.put('/api/updateaddress/:addressId',authenticateUser, addressCtlr.updateAddress)
