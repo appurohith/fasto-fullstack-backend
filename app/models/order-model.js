@@ -9,20 +9,17 @@ const orderSchema = new Schema({
     },
     products:[
         {
-            productsId : {
                 type: Schema.Types.ObjectId,
                 ref: 'Product'
-            },
-        }
+        },
     ],
-    Cart : [
+    cart : [
         {
             cartId : {
                 type : Schema.Types.ObjectId,
                 ref: 'Cart'
             },
             quantity : String,
-            price : String
         }
     ],
     addressId : {
@@ -33,11 +30,10 @@ const orderSchema = new Schema({
     status:[
         {
             type: String,
+            default : "pending",
             enum : ['pending','delivered']
         }
     ],
-    
-
 })
 
 const Order = model('Order',orderSchema )

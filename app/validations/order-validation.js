@@ -6,19 +6,19 @@ const orderValidationSchema = {
     //         errorMessage : 'customer ID is required'
     //     }
     // },
-    products: {
-        isArray:{
-            errorMessage: 'Product must be an array'
-        },
-        custom:{
-            options:(value) => {
-                return value.every(product => {
-                    return product.productId && product.quantity && product.price
-                })
-            },
-            errorMessage:  'Each product must have a productId, quantity and price'
-        }
-    },
+        // products: {
+        //     isArray:{
+        //         errorMessage: 'Product must be an array'
+        //     },
+        //     custom:{
+        //         options:(value) => {
+        //             return value.every(product => {
+        //                 return product.productId && product.quantity && product.price
+        //             })
+        //         },
+        //         errorMessage:  'Each product must have a productId, quantity and price'
+        //     }
+        // },
     addressId : {
         notEmpty : {
             errorMessage : 'address ID is required'
