@@ -97,6 +97,8 @@ app.get('/api/getUserCart',authenticateUser,authorizeUser(['customer']),cartCltr
 app.put('/api/user/inccart/:id',authenticateUser,authorizeUser(['customer']),cartCltr.incCart)
 app.put('/api/user/deccart/:id',authenticateUser,authorizeUser(['customer']),cartCltr.decCart)
 
+app.get('/api/user/cardid',authenticateUser,cartCltr.cartId)
+
 
 app.listen(PORT, () => {
     console.log('server is running on port', PORT)
