@@ -35,13 +35,9 @@ const deliveryCltr = require('./app/controllers/Delivery-cltr')
 const ordersCltr = require('./app/controllers/order-cltr')
 
 
-
-
-
-
 const {authenticateUser, authorizeUser} = require('./app/middlewares/auth')
 
-const {registerSchema, loginSchema } = require('./app/validations/user-validation')
+const {registerSchema, loginSchema , userForgotPassword} = require('./app/validations/user-validation')
 const categoryValidationSchema = require('./app/validations/category-validation')
 const {productSchema, productUpdateSchema}= require('./app/validations/product-validation')
 const deliverymanValidationSchema = require('./app/validations/delivery-validation')
@@ -57,6 +53,10 @@ app.post('/api/user/login',checkSchema(loginSchema), usersCltr.login)
 app.get('/api/user/getSingleProfile',authenticateUser, usersCltr.userProfile)
 app.get('/api/user/getAllUsers',authenticateUser,authorizeUser(['Admin']), usersCltr.listAllUser)
 app.put('/api/user/profile/editprofile',authenticateUser, usersCltr.updateProfile)
+
+//Forgot password
+app.post("/api/user/forgot-password",checkSchema(userForgotPassword),usersCltr.forgotPassword)
+app.post("/api/reset-password/:id/:token",usersCltr.resetPassword)
 
 //category API
 app.post('/api/category',authenticateUser,authorizeUser(['Admin']),checkSchema(categoryValidationSchema), categoryCltr.createCategory)
@@ -96,6 +96,8 @@ app.put("/api/updateCart",authenticateUser,authorizeUser(['customer']),cartCltr.
 app.get('/api/getUserCart',authenticateUser,authorizeUser(['customer']),cartCltr.listCart)
 app.put('/api/user/inccart/:id',authenticateUser,authorizeUser(['customer']),cartCltr.incCart)
 app.put('/api/user/deccart/:id',authenticateUser,authorizeUser(['customer']),cartCltr.decCart)
+
+app.get('/api/user/cardid',cartCltr.cartId)
 
 
 app.listen(PORT, () => {

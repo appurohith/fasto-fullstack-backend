@@ -104,6 +104,15 @@ cartCltr.updateCart = async(req,res) =>{
     }
 }
 
+cartCltr.cartId = async(req, res) => {
+    try{
+        const cart = await Cart.findOne({customerId : req.user.id},{new : true})
+        res.json(cart)
+    } catch(e){
+        console.log(e)
+    }
+}
+
 cartCltr.listCart = async(req, res) => {
     try{
         const cart = await Cart.find( {customerId:req.user.id} )
