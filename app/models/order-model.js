@@ -33,7 +33,7 @@ const orderSchema = new Schema({
             default : "pending",
             enum : ['pending','delivered']
         }
-    ],
+    ]
 })
 
 const Order = model('Order',orderSchema )
