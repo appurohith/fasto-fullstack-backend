@@ -194,7 +194,7 @@ usersCltr.updateProfile = async (req, res) => {
       //   const resetUrl = ${req.protocol}://${req.get(process.env.SERVER_URL)}/api/v1/users/resetPassword/${resetToken}
       //  const message = below link to reset ${resetUrl}
   
-      res.status(200).json({ status: "sucess", msg: "sent success " })
+      res.status(200).json({ status: "success", msg: "Email Sent Successfully" })
     } catch (err) {
       console.log(err)
       return res.status(500).json(err)
