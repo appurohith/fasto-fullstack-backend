@@ -13,6 +13,7 @@ ordersCltr.createOrder = async (req, res) => {
     body.customerId=req.user.id
     try{
         const order = new Order(body)
+        const cart = await Cart.findOne({customerId : req.user.id})
         await order.save()
         return res.json(order)
     } catch(e){

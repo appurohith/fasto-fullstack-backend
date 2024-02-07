@@ -97,7 +97,7 @@ app.get('/api/getUserCart',authenticateUser,authorizeUser(['customer']),cartCltr
 app.put('/api/user/inccart/:id',authenticateUser,authorizeUser(['customer']),cartCltr.incCart)
 app.put('/api/user/deccart/:id',authenticateUser,authorizeUser(['customer']),cartCltr.decCart)
 
-app.get('/api/user/cardid',cartCltr.cartId)
+app.get('/api/user/cardid',authenticateUser,cartCltr.idCart)
 
 
 app.listen(PORT, () => {
