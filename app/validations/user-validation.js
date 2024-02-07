@@ -72,7 +72,22 @@ const loginValidationSchema = {
     password: passwordSchema
 }
 
+const emailSchema = {
+    isEmail: {
+        errorMessage: "Email must be a valid format"
+    },
+    notEmpty: {
+        errorMessage: "Email cannot be empty"
+    }
+
+}
+
+const forgotPassword = {
+    email:emailSchema
+}
+
 module.exports = {
     registerSchema: registerValidationSchema,
-    loginSchema: loginValidationSchema
+    loginSchema: loginValidationSchema,
+    userForgotPassword:forgotPassword
 }

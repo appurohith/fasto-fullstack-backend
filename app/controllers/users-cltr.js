@@ -4,6 +4,7 @@ const _ = require('lodash')
 const jwt = require('jsonwebtoken')
 const Cart = require("../models/cart-model")
 const { validationResult } = require('express-validator')
+const nodeEmail = require('../utils/Nodemailer/email')
 
 const usersCltr = {}
 
@@ -171,6 +172,58 @@ usersCltr.updateProfile = async (req, res) => {
       return res.status(500).json({error: "Internal Server Error"})
      }
   };
+
+  usersCltr.forgotPassword = async (req, res) => {
+    const { email } = req.body
+    try {
+  
+      const user = await User.findOne({ email: email })
+      if (!user) res.status(404).json({ err: "Email not found" })
+  
+      const genToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+        expiresIn: "10min"
+      })
+      emailData = {
+        email: user.email,
+        subject: "FASTO@<support> Password Change",
+        message: `Click here to reset your password ${process.env.FRONTEND_URL}/resetPassword/${user._id}/${genToken}`
+  
+      }
+      await nodeEmail(emailData)
+      //send the token back to the user email
+      //   const resetUrl = ${req.protocol}://${req.get(process.env.SERVER_URL)}/api/v1/users/resetPassword/${resetToken}
+      //  const message = below link to reset ${resetUrl}
+  
+      res.status(200).json({ status: "sucess", msg: "sent success " })
+    } catch (err) {
+      console.log(err)
+      return res.status(500).json(err)
+    }
+  
+  }
+  
+  
+ usersCltr.resetPassword = async (req, res) => {
+    const { password } = req.body
+  
+    const { id, token } = req.params
+  
+    try {
+      const decrypt = jwt.verify(token, process.env.JWT_SECRET)
+  
+      const salt = await bcryptjs.genSalt()
+      const encryptedPwd = await bcryptjs.hash(password, salt)
+  
+      await User.findByIdAndUpdate(id, { password: encryptedPwd })
+      return res.status(200).json({ msg: "Successfully changed the password" })
+    } catch (err) {
+      console.log(err)
+      if (err.name === "TokenExpriedError") {
+        return res.status(401).json({ status: 'error', msg: "Token has expried" })
+      }
+      return res.status(500).json({ status: 'error', msg: err })
+    }
+  }
   
 
 
