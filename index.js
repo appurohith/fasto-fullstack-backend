@@ -82,9 +82,6 @@ app.get('/api/listAllOders',authenticateUser,authorizeUser(['Admin']), ordersClt
 app.delete('/api/user/order/:id',authenticateUser,authorizeUser(['customer']),ordersCltr.delete)
 
 //adress
-// app.post('/api/user/order/address',authenticateUser,checkSchema(addressValidationSchema),AddressCltr.createAddress)
-// app.get('/api/listAllAddress',authenticateUser, authorizeUser(['Admin']), AddressCltr.listAllAddress)
-// app.post('/api/address',authenticateUser,checkSchema(addressValidationSchema),addressCtlr.createAddress)
 app.get('/api/getaddress',authenticateUser,authorizeUser(['Admin','customer']), addressCtlr.getAddress)
 app.post('/api/address',authenticateUser,checkSchema(addressValidationSchema),addressCtlr.createAddress)
 app.put('/api/updateaddress/:addressId',authenticateUser, addressCtlr.updateAddress)
@@ -97,7 +94,7 @@ app.get('/api/getUserCart',authenticateUser,authorizeUser(['customer']),cartCltr
 app.put('/api/user/inccart/:id',authenticateUser,authorizeUser(['customer']),cartCltr.incCart)
 app.put('/api/user/deccart/:id',authenticateUser,authorizeUser(['customer']),cartCltr.decCart)
 
-app.get('/api/user/cardid',cartCltr.cartId)
+app.get('/api/user/cardid',authenticateUser,cartCltr.idCart)
 
 
 app.listen(PORT, () => {
