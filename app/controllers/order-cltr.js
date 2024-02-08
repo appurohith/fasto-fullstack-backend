@@ -10,23 +10,37 @@ ordersCltr.createOrder = async (req, res) => {
     if(!errors.isEmpty()){
         return res.status(400).json({errors: errors.array()})
     }
-    const body = _.pick(req.body, ['cart','addressId','total'])
-    body.customerId=req.user.id
+    const body = _.pick(req.body, ['addressId'])
+    body.customerId = req.user.id
     try{
+        const cart = await Cart.findOne({customerId: body.customerId})
+        body.cart = cart._id
+        console.log(body, "body")
+
         const order = new Order(body);
         await order.save();
 
-        // Find the order and populate the 'cart.cartId' field
-        const populatedOrder = await Order.findById(order._id).populate('cart.cartId');
+        // res.status(201).json(order)
 
-        // Populate the 'products' field in each cart
-        for (let cartItem of populatedOrder.cart) {
-            await Cart.populate(cartItem, {
-                path: 'cartId.products.productId',
+        // Find the order and populate the 'cart.cartId' field
+        // const populatedOrder = await Order.findById(order._id).populate('cart.cartId');
+
+        // // Populate the 'products' field in each cart
+        // for (let cartItem of populatedOrder.cart) {
+        //     await Cart.populate(cartItem, {
+        //         path: 'cartId.products.productId',
+        //         model: 'Product',
+        //         select: 'name price image quantity' 
+        //     });
+        // }
+        const populatedOrder = await Order.findById(order._id).populate({
+            path: 'cart',
+            populate: {
+                path: 'products.productId',
                 model: 'Product',
-                select: 'name price image quantity' 
-            });
-        }
+                select: 'name price image quantity'
+            }
+        });
 
         return res.json(populatedOrder);
 
