@@ -21,7 +21,11 @@ const orderSchema = new Schema({
             type: String,
             default : "pending",
             enum : ['pending','delivered']
-        }
+        },
+    paymentStatus : {
+        type:Boolean,
+        default:false
+    }
     
 })
 

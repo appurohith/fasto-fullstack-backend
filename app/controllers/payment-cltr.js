@@ -43,8 +43,9 @@ paymentCltr.paymentCheckoutSession = async (req, res) => {
             select: 'name price image quantity'
         }
     });
+
     
-    return res.json(order);
+    // return res.json(order);
     
       
     const customer = await stripe.customers.create({
@@ -59,14 +60,14 @@ paymentCltr.paymentCheckoutSession = async (req, res) => {
       },
   })
 
-  const cartitems = order.cart.cartId.products.map((ele) => {
+  const cartitems = order.cart.products.map((ele) => {
     return {
       price_data: {
         currency: "inr",
         product_data: {
           name: ele.productId.name,
         //   images : [`https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.amazon.in%2FFresh-Potato-1kg-Pack%2Fdp%2FB07BG5GZP2&psig=AOvVaw1a_DbkXw3cTR7R3z0eTzAi&ust=1707466559690000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCODWit-mm4QDFQAAAAAdAAAAABAE`]
-        //   Images : [`https://fantasy11.s3.ap-south-1.amazonaws.com/players/Virat%20Kohli.png`]
+           Images : [`https://fantasy11.s3.ap-south-1.amazonaws.com/players/Virat%20Kohli.png`]
         },
         unit_amount: ele.price * 100, // not done the converting to cents for usd
       },
