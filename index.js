@@ -46,6 +46,7 @@ const cartValidationSchema = require('./app/validations/cart-validation')
 const cartCltr = require('./app/controllers/Cart-cltr')
 const addressValidationSchema = require('./app/validations/address-validation')
 const addressCtlr = require('./app/controllers/address-cltr')
+const paymentCltr = require('./app/controllers/payment-cltr')
 
 //user APIS
 app.post('/api/user/register',checkSchema(registerSchema), usersCltr.register)
@@ -95,6 +96,9 @@ app.put('/api/user/inccart/:id',authenticateUser,authorizeUser(['customer']),car
 app.put('/api/user/deccart/:id',authenticateUser,authorizeUser(['customer']),cartCltr.decCart)
 
 app.get('/api/user/cardid',authenticateUser,cartCltr.idCart)
+
+//payment model
+app.post('/api/user/payment',authenticateUser,paymentCltr.paymentCheckoutSession)
 
 
 app.listen(PORT, () => {
