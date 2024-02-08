@@ -67,7 +67,7 @@ paymentCltr.paymentCheckoutSession = async (req, res) => {
         product_data: {
           name: ele.productId.name,
         //   images : [`https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.amazon.in%2FFresh-Potato-1kg-Pack%2Fdp%2FB07BG5GZP2&psig=AOvVaw1a_DbkXw3cTR7R3z0eTzAi&ust=1707466559690000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCODWit-mm4QDFQAAAAAdAAAAABAE`]
-           Images : [`https://fantasy11.s3.ap-south-1.amazonaws.com/players/Virat%20Kohli.png`]
+        //    Images : [`https://fantasy11.s3.ap-south-1.amazonaws.com/players/Virat%20Kohli.png`]
         },
         unit_amount: ele.price * 100, // not done the converting to cents for usd
       },
@@ -107,6 +107,34 @@ paymentCltr.paymentCheckoutSession = async (req, res) => {
     }
   }
 };
+
+paymentCltr.updatedPayment = async(req,res)=>{
+    const {stripeId} = req.body
+    try{
+      console.log("1")
+      const payment = await PaymentModel.findOneAndUpdate(
+        { transaction_Id: stripeId },
+        { status: true },
+        { new: true }
+      );
+          console.log(payment,"paymentInfo")
+      if(payment.status === true){
+        console.log("2")
+        const order = await Order.findOneAndUpdate({_id:payment.orderId},{status:true},)
+          console.log(order._id,"id")
+  
+
+  
+  
+        res.status(200).json("Payment Successfull", totalAmount,"Rs")
+      }
+      if(!payment) return res.status(404).json("Cannot find the Payment Info")
+  
+    } catch(err){
+      console.log(err)
+      return res.status(500).json(err)
+    }
+  }
 
 
 
