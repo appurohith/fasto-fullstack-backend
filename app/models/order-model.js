@@ -15,14 +15,18 @@ const orderSchema = new Schema({
         type : Schema.Types.ObjectId,
         ref : 'Address'
     },
-    // total: Number,
-    status:
-        {
+    total: Number,
+    status:{
             type: String,
             default : "pending",
             enum : ['pending','delivered']
-        }
-    ]
+    },
+    paymentStatus : {
+        type : Boolean,
+        default : false
+
+    }
+
 })
 
 const Order = model('Order',orderSchema )
