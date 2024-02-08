@@ -24,23 +24,23 @@ const orderValidationSchema = {
             errorMessage : 'address ID is required'
         }
     },
-    total : {
-        notEmpty :{
-            errorMessage : 'Total is required'
-        },
-        isNumeric : {
-            errorMessage : 'Total should be number'
-        }
-    },
-    status:{
-        notEmpty:{
-            errorMessage: 'Status is required'
-        },
-        isIn:{
-            options:['pending','delivered'],
-            errorMessage:'Status should be either  pending or delivered'
-        }
-    }
+    // total : {
+    //     notEmpty :{
+    //         errorMessage : 'Total is required'
+    //     },
+    //     isNumeric : {
+    //         errorMessage : 'Total should be number'
+    //     }
+    // },
+    // status:{
+    //     notEmpty:{
+    //         errorMessage: 'Status is required'
+    //     },
+    //     isIn:{
+    //         options:['pending','delivered'],
+    //         errorMessage:'Status should be either  pending or delivered'
+    //     }
+    // }
 }
 
 module.exports = orderValidationSchema
