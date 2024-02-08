@@ -1,5 +1,6 @@
 const Order = require('../models/order-model')
 const Cart = require('../models/cart-model')
+const Address = require('../models/address-model')
 const _ = require('lodash')
 const {validationResult} = require('express-validator')
 
@@ -10,10 +11,13 @@ ordersCltr.createOrder = async (req, res) => {
     if(!errors.isEmpty()){
         return res.status(400).json({errors: errors.array()})
     }
-    const body = _.pick(req.body, ['addressId',"total"])
+    const body = _.pick(req.body, ["total"])
+    console.log()
     body.customerId = req.user.id
     try{
         const cart = await Cart.findOne({customerId: body.customerId})
+        const address = await Address.findOne({customerId : body.customerId})
+        body.addressId = address._id
         body.cart = cart._id
         console.log(body, "body")
 
@@ -42,8 +46,8 @@ ordersCltr.createOrder = async (req, res) => {
             }
         });
 
+        console.log(populatedOrder,"getingsome")
         return res.json(populatedOrder);
-
         //working
         // const order = new Order(body)
         // await order.save()

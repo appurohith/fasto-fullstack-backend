@@ -19,11 +19,11 @@ const orderValidationSchema = {
         //         errorMessage:  'Each product must have a productId, quantity and price'
         //     }
         // },
-    addressId : {
-        notEmpty : {
-            errorMessage : 'address ID is required'
-        }
-    },
+    // addressId : {
+    //     notEmpty : {
+    //         errorMessage : 'address ID is required'
+    //     }
+    // },
     // total : {
     //     notEmpty :{
     //         errorMessage : 'Total is required'
