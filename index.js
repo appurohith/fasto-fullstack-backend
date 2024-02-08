@@ -99,7 +99,8 @@ app.get('/api/user/cardid',authenticateUser,cartCltr.idCart)
 
 //payment model
 app.post('/api/user/payment',authenticateUser,paymentCltr.paymentCheckoutSession)
-
+app.put("/api/user/update-payment",authenticateUser,paymentCltr.updatedPayment)
+app.delete("/api/delete-payment/:paymentId",authenticateUser,paymentCltr.deletePayment)
 
 app.listen(PORT, () => {
     console.log('server is running on port', PORT)

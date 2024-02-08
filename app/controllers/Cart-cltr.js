@@ -61,7 +61,7 @@ cartCltr.createCart = async (req, res) => {
 
 cartCltr.incCart = async(req,res) => {
     const productId = req.params.id;
-    console.log(req.params.id)
+    // console.log(req.params.id)
     try{
         const inccart = await Cart.findOneAndUpdate(
             {customerId : req.user.id,
@@ -71,14 +71,14 @@ cartCltr.incCart = async(req,res) => {
         );
         const product = inccart.products.find(ele => ele.productId === productId)
         res.json(product);
-        console.log(inccart)
+        // console.log(inccart)
     } catch(e){
         console.log(e);
     }
 }
 cartCltr.decCart = async(req,res) => {
     const productId = req.params.id;
-    console.log(req.params.id)
+    // console.log(req.params.id)
     try{
         const deccart = await Cart.findOneAndUpdate(
             {customerId : req.user.id,
@@ -87,7 +87,7 @@ cartCltr.decCart = async(req,res) => {
             { new: true }
         );
         const product = deccart.products.find(ele => ele.productId === productId)
-        console.log()
+        // console.log()
         res.json(product);
     } catch(e){
         console.log(e);

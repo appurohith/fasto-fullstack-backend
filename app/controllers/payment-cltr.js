@@ -122,11 +122,7 @@ paymentCltr.updatedPayment = async(req,res)=>{
         console.log("2")
         const order = await Order.findOneAndUpdate({_id:payment.orderId},{status:true},)
           console.log(order._id,"id")
-  
-
-  
-  
-        res.status(200).json("Payment Successfull", totalAmount,"Rs")
+        res.status(200).json("Payment Successfull", order.total,"Rs")
       }
       if(!payment) return res.status(404).json("Cannot find the Payment Info")
   
@@ -139,15 +135,15 @@ paymentCltr.updatedPayment = async(req,res)=>{
 
 
 
-// paymentCltr.deletePayment  = async(req,res)=>{
-//   const {paymentId} = req.params
-//   try{
-//     await PaymentModel.findOneAndDelete({userId:req.user.id,transaction_Id:paymentId})
-//     return res.status(200).json("Somthing went wrong on the payment")
-//   }catch(err){//write the status code for payments
-//     return res.json(EvalError)
-//   }
-// }
+paymentCltr.deletePayment  = async(req,res)=>{
+  const {paymentId} = req.params
+  try{
+    await PaymentModel.findOneAndDelete({customerId:req.user.id,transaction_Id:paymentId})
+    return res.status(200).json("Somthing went wrong on the payment")
+  }catch(err){//write the status code for payments
+    return res.json(EvalError)
+  }
+}
 
 
 
