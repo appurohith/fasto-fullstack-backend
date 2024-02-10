@@ -21,43 +21,6 @@ cartCltr.createCart = async (req, res) => {
     }
 }
 
-// cartCltr.incCart = async (req, res) => {
-//     const productId = req.params.id;
-
-//     try {
-//         // Find the cart document for the current user
-//         const cart = await Cart.findOne({ customerId: req.user.id });
-
-//         // If cart not found, create a new one
-//         if (!cart) {
-//             const newCart = new Cart({
-//                 customerId: req.user.id,
-//                 products: [{ productId, quantity: 1, price: 80 }] // Add the product to the products array
-//             });
-//             const savedCart = await newCart.save();
-//             return res.json(savedCart);
-//         }
-
-//         // Check if the product already exists in the cart
-//         const existingProductIndex = cart.products.findIndex(product => product.productId === productId);
-
-//         if (existingProductIndex !== -1) {
-//             // If product exists, increment its quantity
-//             cart.products[existingProductIndex].quantity += 1;
-//         } else {
-//             // If product doesn't exist, add it to the products array
-//             cart.products.push({ productId, quantity: 1, price: 80 });
-//         }
-
-//         // Save the updated cart
-//         const updatedCart = await cart.save();
-//         console.log(updatedCart)
-//         return res.json(updatedCart);
-//     } catch (e) {
-//         console.log(e);
-//         return res.status(500).json({ error: 'Internal Server Error' });
-//     }
-// };
 
 cartCltr.incCart = async(req,res) => {
     const productId = req.params.id;
@@ -117,7 +80,7 @@ cartCltr.idCart= async(req, res) => {
 cartCltr.listCart = async(req, res) => {
     try{
         const cart = await Cart.find( {customerId:req.user.id} )
-        console.log(cart)
+        // console.log(cart)
         res.status(200).json(cart)
     } catch(e){
         console.log(e)

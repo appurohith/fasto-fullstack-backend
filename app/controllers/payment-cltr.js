@@ -84,7 +84,7 @@ paymentCltr.paymentCheckoutSession = async (req, res) => {
         success_url: `${process.env.FRONTEND_URL}/success`,
         cancel_url: `${process.env.FRONTEND_URL}/cancel`,
       }); 
-      console.log(session,"in srssion")
+      // console.log(session,"in session")
 
         res.json({id:session.id,url:session.url})
 
@@ -110,6 +110,7 @@ paymentCltr.paymentCheckoutSession = async (req, res) => {
 
 paymentCltr.updatedPayment = async(req,res)=>{
     const {stripeId} = req.body
+    console.log(stripeId)
     try{
       console.log("1")
       const payment = await PaymentModel.findOneAndUpdate(
@@ -120,7 +121,7 @@ paymentCltr.updatedPayment = async(req,res)=>{
           console.log(payment,"paymentInfo")
       if(payment.status === true){
         console.log("2")
-        const order = await Order.findOneAndUpdate({_id:payment.orderId},{status:true},)
+        const order = await Order.findOneAndUpdate({_id:payment.orderId},{status:true,paymentStatus:true})
           console.log(order._id,"id")
         res.status(200).json("Payment Successfull", order.total,"Rs")
       }
