@@ -12,7 +12,6 @@ ordersCltr.createOrder = async (req, res) => {
         return res.status(400).json({errors: errors.array()})
     }
     const body = _.pick(req.body, ["total"])
-    console.log()
     body.customerId = req.user.id
     try{
         const cart = await Cart.findOne({customerId: body.customerId})
@@ -23,20 +22,6 @@ ordersCltr.createOrder = async (req, res) => {
 
         const order = new Order(body);
         await order.save();
-
-        // res.status(201).json(order)
-
-        // Find the order and populate the 'cart.cartId' field
-        // const populatedOrder = await Order.findById(order._id).populate('cart.cartId');
-
-        // // Populate the 'products' field in each cart
-        // for (let cartItem of populatedOrder.cart) {
-        //     await Cart.populate(cartItem, {
-        //         path: 'cartId.products.productId',
-        //         model: 'Product',
-        //         select: 'name price image quantity' 
-        //     });
-        // }
         const populatedOrder = await Order.findById(order._id).populate({
             path: 'cart',
             populate: {
@@ -48,29 +33,25 @@ ordersCltr.createOrder = async (req, res) => {
 
         console.log(populatedOrder,"getingsome")
         return res.json(populatedOrder);
-        //working
-        // const order = new Order(body)
-        // await order.save()
-
-        // // Find the order and populate the 'cart.cartId' field
-        // const populatedOrder = await Order.findById(order._id).populate('cart.cartId')
-
-        // // Populate the 'products' field in each cart
-        // for (let cartItem of populatedOrder.cart) {
-        //     await Cart.populate(cartItem, {
-        //         path: 'cartId.products.productId',
-        //         model: 'Product',
-        //         select : 
-        //     });
-        // }
-        
-        // return res.json(populatedOrder)
     } catch(e){
         console.log(e);
         return res.status(500).json(e);
     }
 }
 
+ordersCltr.listSingleOrder = async (req,res) => {
+    const errors = validationResult(req)
+    if(!errors.isEmpty()){
+        return res.status(400).json({errors: errors.array()})
+    }
+    customerId = req.user.id
+    try{
+        const orders = await Order.find({customerId  })
+        res.status(200).json({orders})
+    }catch(e){
+        console.log(e)
+    }
+}
 
 ordersCltr.listAllOrder = async (req, res) => {
     try {

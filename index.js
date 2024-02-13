@@ -81,7 +81,8 @@ app.delete('/api/admin/deliveryman/:id', authenticateUser, authorizeUser(['Admin
 app.post('/api/user/order',authenticateUser,checkSchema(orderValidationSchema),ordersCltr.createOrder)
 app.get('/api/listAllOders',authenticateUser,authorizeUser(['Admin']), ordersCltr.listAllOrder)
 app.delete('/api/user/order/:id',authenticateUser,authorizeUser(['customer']),ordersCltr.delete)
-
+app.get('/api/user/userOrder',authenticateUser,authorizeUser(['customer']),ordersCltr.listSingleOrder)
+    
 //adress
 app.get('/api/getaddress',authenticateUser,authorizeUser(['Admin','customer']), addressCtlr.getAddress)
 app.post('/api/address',authenticateUser,checkSchema(addressValidationSchema),addressCtlr.createAddress)
