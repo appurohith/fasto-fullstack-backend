@@ -88,7 +88,6 @@ cartCltr.listCart = async(req, res) => {
     }
 }
 
-
 cartCltr.deleteCart = async (req, res) => {
     const id = req.params.id
     try {
@@ -98,6 +97,4 @@ cartCltr.deleteCart = async (req, res) => {
         res.status(500).json(e)
     }
 }
-
 module.exports = cartCltr
- 
