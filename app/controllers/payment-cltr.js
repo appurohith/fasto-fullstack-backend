@@ -112,7 +112,7 @@ paymentCltr.updatedPayment = async(req,res)=>{
     const {stripeId} = req.body
     console.log(stripeId)
     try{
-      console.log("1")
+      // console.log("1")
       const payment = await PaymentModel.findOneAndUpdate(
         { transaction_Id: stripeId },
         { status: true },
@@ -121,8 +121,9 @@ paymentCltr.updatedPayment = async(req,res)=>{
           console.log(payment,"paymentInfo")
       if(payment.status === true){
         console.log("2")
-        const order = await Order.findOneAndUpdate({_id:payment.orderId},{status:true,paymentStatus:true})
-          console.log(order._id,"id")
+        const order = await Order.findOneAndUpdate({_id:payment.orderId},{paymentStatus:true})
+        // status:true
+          // console.log(order._id,"id")
         res.status(200).json("Payment Successfull", order.total,"Rs")
       }
       if(!payment) return res.status(404).json("Cannot find the Payment Info")
