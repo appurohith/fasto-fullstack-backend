@@ -95,8 +95,9 @@ app.put("/api/updateCart",authenticateUser,authorizeUser(['customer']),cartCltr.
 app.get('/api/getUserCart',authenticateUser,authorizeUser(['customer']),cartCltr.listCart)
 app.put('/api/user/inccart/:id',authenticateUser,authorizeUser(['customer']),cartCltr.incCart)
 app.put('/api/user/deccart/:id',authenticateUser,authorizeUser(['customer']),cartCltr.decCart)
+app.put('/api/user/cart/empty',authenticateUser,cartCltr.deleteAllProducts)
 
-app.get('/api/user/cardid',authenticateUser,cartCltr.idCart)
+app.get('/api/user/cardid',authenticateUser,authorizeUser(['customer']),cartCltr.idCart)
 
 //payment model
 app.post('/api/user/payment',authenticateUser,paymentCltr.paymentCheckoutSession)

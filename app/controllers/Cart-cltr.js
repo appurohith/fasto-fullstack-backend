@@ -68,7 +68,6 @@ cartCltr.updateCart = async(req,res) =>{
 }
 
 cartCltr.idCart= async(req, res) => {
-    
     try{
         const cart = await Cart.findOne({customerId : req.user.id})
         res.json(cart._id)
@@ -87,14 +86,53 @@ cartCltr.listCart = async(req, res) => {
         res.status(500).json(e)
     }
 }
-
 cartCltr.deleteCart = async (req, res) => {
-    const id = req.params.id
+    const productId = req.params.id;
     try {
-        const cart = await Cart.findByIdAndDelete({_id:id,customer:req.user.id})
-        res.status(200).json(cart)
-    } catch(e) {
-        res.status(500).json(e)
+        const deletecart = await Cart.findOneAndUpdate(
+            { customerId: req.user.id },
+            { $pull: { products: { productId: productId } } },
+            { new: true }
+        );
+        res.json(deletecart);
+    } catch (e) {
+        console.log(e);
+        res.status(500).json({ error: 'Internal server error' });
     }
 }
+// cartCltr.deleteAllProducts = async (req, res) => {
+//     try {
+//         // Find the cart document for the current user and update the products array to an empty array
+//         const updatedCart = await Cart.findOneAndUpdate(
+//             { customerId: req.user.id },
+//             { $set: { products: [] } },
+//             { new: true }
+//         );
+
+//         res.json(updatedCart);
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ error: 'Internal server error' });
+//     }
+// }
+
+cartCltr.deleteAllProducts = async (req, res) => {
+    try {
+        const updatedCart = await Cart.findOneAndUpdate(
+            { customerId: req.user.id },
+            { $set: { products: [] } },
+            { new: true }
+        );
+
+        if (!updatedCart) {
+            return res.status(404).json({ error: 'Cart not found' });
+        }
+
+        res.json(updatedCart);
+    } catch (error) {
+        console.error('Error deleting all products from cart:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
 module.exports = cartCltr
