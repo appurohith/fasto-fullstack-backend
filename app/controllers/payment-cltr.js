@@ -118,9 +118,9 @@ paymentCltr.updatedPayment = async(req,res)=>{
         { status: true },
         { new: true }
       );
-          console.log(payment,"paymentInfo")
+          // console.log(payment,"paymentInfo")
       if(payment.status === true){
-        console.log("2")
+        // console.log("2")
         const order = await Order.findOneAndUpdate({_id:payment.orderId},{paymentStatus:true})
         // status:true
           // console.log(order._id,"id")
