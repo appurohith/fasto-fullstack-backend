@@ -116,7 +116,7 @@ cartCltr.deleteCart = async (req, res) => {
 //     }
 // }
 
-cartCltr.deleteAllProducts = async (req, res) => {
+cartCltr.emptyCart = async (req, res) => {
     try {
         const updatedCart = await Cart.findOneAndUpdate(
             { customerId: req.user.id },

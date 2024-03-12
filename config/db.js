@@ -6,7 +6,7 @@ const configureDB  = async () => {
         console.log("successfully connected to db")
     }
     catch(e){
-        console.log(e)
+        console.log("hello",e)
     }
 }
 
