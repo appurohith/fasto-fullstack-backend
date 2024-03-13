@@ -79,7 +79,7 @@ app.delete('/api/admin/deliveryman/:id', authenticateUser, authorizeUser(['Admin
 
 //order api
 app.post('/api/user/order',authenticateUser,checkSchema(orderValidationSchema),ordersCltr.createOrder)
-app.get('/api/listAllOders',authenticateUser,authorizeUser(['Admin']), ordersCltr.listAllOrder)
+app.get('/api/listAllOrders',authenticateUser,authorizeUser(['Admin']), ordersCltr.listAllOrder)
 app.delete('/api/user/order/:id',authenticateUser,authorizeUser(['customer']),ordersCltr.delete)
 app.get('/api/user/userOrder',authenticateUser,authorizeUser(['customer']),ordersCltr.listSingleOrder)
     

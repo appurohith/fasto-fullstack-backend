@@ -134,9 +134,6 @@ paymentCltr.updatedPayment = async(req,res)=>{
     }
   }
 
-
-
-
 paymentCltr.deletePayment  = async(req,res)=>{
   const {paymentId} = req.params
   try{
