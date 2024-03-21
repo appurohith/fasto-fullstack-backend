@@ -55,7 +55,7 @@ ordersCltr.listSingleOrder = async (req,res) => {
 
 ordersCltr.listAllOrder = async (req, res) => {
     try {
-        const order = await Order.find()
+        const order = await Order.find().populate('customerId').populate('addressId')
         res.status(200).json(order)
     } catch(e){
         res.status(500).json(e)
