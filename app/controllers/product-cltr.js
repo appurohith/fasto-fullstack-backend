@@ -29,13 +29,26 @@ productCltr.createProduct = async (req,res) => {
     }
 }
 
+// productCltr.listProduct = async (req, res) => {
+//     try {
+//         const product = await Product.find()
+
+//         res.status(200).json(product)
+//     } catch(e) {
+//         res.status(500).json(e)
+//     }
+// }
 productCltr.listProduct = async (req, res) => {
     try {
-        const product = await Product.find()
+        const page = parseInt(req.query.page) || 1; // Default to page 1 if not provided
+        const limit = 8;
+        const skip = (page - 1) * limit;
 
-        res.status(200).json(product)
+        const products = await Product.find().skip(skip).limit(limit);
+
+        res.status(200).json(products);
     } catch(e) {
-        res.status(500).json(e)
+        res.status(500).json(e);
     }
 }
 
