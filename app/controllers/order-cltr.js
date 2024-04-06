@@ -55,7 +55,14 @@ ordersCltr.listSingleOrder = async (req,res) => {
 
 ordersCltr.listAllOrder = async (req, res) => {
     try {
-        const order = await Order.find().populate('customerId').populate('addressId')
+        const order = await Order.find().populate('customerId').populate('addressId').populate({
+            path: 'cart',
+            populate: {
+                path: 'products.productId',
+                model: 'Product',
+                select: 'name price image quantity'
+            }
+        });
         res.status(200).json(order)
     } catch(e){
         res.status(500).json(e)
