@@ -47,7 +47,7 @@ ordersCltr.listSingleOrder = async (req,res) => {
     customerId = req.user.id
     try{
         const orders = await Order.find({customerId  })
-        res.status(200).json({orders})
+        res.status(200).json(orders)
     }catch(e){
         console.log(e)
     }
