@@ -69,6 +69,7 @@ app.put('/api/admin/updateCategory/:id', authenticateUser, authorizeUser(['Admin
 //product Api
 app.post('/api/product',upload.single('image'),authenticateUser,authorizeUser(['Admin']),checkSchema(productSchema),productCltr.createProduct )
 app.get('/api/getAllProducts',productCltr.listProduct)
+app.get('/api/listAllProducts',productCltr.AllProducts)
 app.put('/api/admin/product/:id',authenticateUser, authorizeUser(['Admin']),checkSchema(productUpdateSchema), productCltr.updateProduct)
 app.delete('/api/admin/products/:id',authenticateUser,authorizeUser(['Admin']), productCltr.deleteProduct)
 
